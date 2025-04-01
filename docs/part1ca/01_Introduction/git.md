@@ -3,19 +3,35 @@ Using Git and GitHub
 
 Reference on Git is available [here](https://git-scm.com/book/en/v2).
 
-## Creating a repository
+## Installing Git
+
+1. For Windows users: [download](https://git-scm.com/downloads) and install Git. Run Git Bash.
+2. For Linux users: run command `sudo apt install git` in Terminal (typically it is already installed).
+
+# Generating SSH Keys
+
+Run the `ssh-keygen` command in the console, to generate SSH keys.
+Specify the passphrase for the keys. The keys will be generated in the following folders.
+
+* MacOS: `/Users/andrew/.ssh`
+* Windows: `/c/Users/andrew/.ssh`
+* Linux: `/home/andrewt/.ssh`
+
+`id_rsa` is a private key, `id_rsa.pub` is a public key.
+
+## Creating Repository
 
 1. Login into [GitHub](https://github.com) or create an account. 
 
 2. [Add](https://github.com/settings/keys) your public SHH key to your account. 
 
-3. Create a new private repository.
+3. Create a new __private__ repository. Name it `<group>_<surname>`, e.g. `204_tatarnikov`.
 
-4. Add the lecturer, the workshop instructor, and the teaching assistant as collaborators to the project. 
+4. Add the workshop instructor and the teaching assistant as collaborators to the project. 
    Here is an example of a link to do this (Project > Setting > Manage Access):   
    `https://github.com/<your account>/<your project>/settings/access`.
 
-# Working with the repository
+# Working with Repository
 
 1. Clone the created repository to your machine:
    ```bash
