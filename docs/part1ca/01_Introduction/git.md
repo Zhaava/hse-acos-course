@@ -82,3 +82,4 @@ Specify the passphrase for the keys. The keys will be generated in the following
 10. Get changes from the remote repository (GitHub): 
     ```bash
     git pull
+    ```
