@@ -1,7 +1,9 @@
 Using Git and GitHub
 ---
 
-Reference on Git is available [here](https://git-scm.com/book/en/v2).
+_NOTE: We will use GitHub and Git to submit some homeworks._
+
+Full reference on Git is available [here](https://git-scm.com/book/en/v2).
 
 ## Installing Git
 
@@ -25,9 +27,10 @@ Specify the passphrase for the keys. The keys will be generated in the following
 
 2. [Add](https://github.com/settings/keys) your public SHH key to your account. 
 
-3. Create a new __private__ repository. Name it `<group>_<surname>`, e.g. `204_tatarnikov`.
+3. Create a new __private__ repository. Name it `<group>_<surname>`, e.g. `231_tatarnikov`.
+   If there is another student with the same surname, add suffix `_<n>` (`n` is the first letter of the name). 
 
-4. Add the workshop instructor and the teaching assistant as collaborators to the project. 
+4. Add the workshop instructor and the teaching assistant as collaborators to the project.
    Here is an example of a link to do this (Project > Setting > Manage Access):   
    `https://github.com/<your account>/<your project>/settings/access`.
 
