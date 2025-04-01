@@ -1,9 +1,9 @@
 Using Git and GitHub
 ---
 
-_NOTE: We will use GitHub and Git to submit some homeworks._
+__We will use GitHub and Git to submit some homeworks.__
 
-Full reference on Git is available [here](https://git-scm.com/book/en/v2).
+_Full reference on Git is available [here](https://git-scm.com/book/en/v2)._
 
 ## Installing Git
 
