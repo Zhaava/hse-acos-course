@@ -1,4 +1,4 @@
-Exam Topics for Year 2021/2022
+Exam Questions
 ---
 
 ## Exam Rules
@@ -17,14 +17,16 @@ __Grade = 0.3 * Theory_CA + 0.3 * Theory_OS + 0.4 * Programming__
 
 ### Hint
 
-An answer to each question is expected to take ~ 3 minutes.
+An answer to each question is expected to take ~3 minutes.
 Theoretical questions contain a number of points (subquestions).
 For many of them, a simple answer (1 sentence) is enough.
-The exam checks your overall understanding of main concepts.
+The exam checks your overall understanding of the main concepts.
 
 ## Questions
 
 ### Computer Architecture
+
+Printed version is [here](exam/exam_ca_print.pdf).
 
 1. Computer architecture.
    * What main parts do modern computers include?
@@ -139,6 +141,8 @@ The exam checks your overall understanding of main concepts.
 
 ### Operating Systems
 
+Printed version is [here](exam/exam_os_print.pdf).
+
 1. Operating system architecture.
    * What are main tasks solved by an operating systems (services)?
    * What is operating system kernel?
@@ -204,7 +208,7 @@ The exam checks your overall understanding of main concepts.
 
 1. File input/output. Pipes and redirection.
    * What system calls are used to read/write data from/to files?
-   * What _glibs_ (C Standard Library) function to work with files do you know? Their advantages over system calls?
+   * What _glibc_ (C Standard Library) function to work with files do you know? Their advantages over system calls?
    * What is a file descriptor? What is descriptor table? What is open file table?
    * List three standard streams of a Linux process and their descriptors.
    * How to redirect process I/O from a terminal to a file?
@@ -233,7 +237,7 @@ The exam checks your overall understanding of main concepts.
    * What are main attributes of a Linux user and group?
    * What access rights do you know? What permission groups do you know? How to view file permissions (what utility tool to use)? 
    * How to change file permissions (what utility tool to use)? E.g. add write permission to _group_, remove read permission from _other_.
-   * Explain the setuid/setguid permissions.
+   * Explain the `setuid`/`setguid` permissions.
    * Explain the sticky bit permission.
 
 1. Inter-process communications: signals.
@@ -261,17 +265,18 @@ The exam checks your overall understanding of main concepts.
 
 ## Programming
 
-Write a program in RISC-V assembly on a sheet of paper. You must be able to explain it.
+You need to write code in RISC-V assembly on a sheet of paper. You must be able to explain it.
 
-The function takes two arguments:
+White a function that takes two arguments:
 * the pointer to an array of 32-bit integers (`a0`);
 * the number of elements in the array (`a1`).
 
-The task that the function solves is specified in you variant. 
+What the function should do is specified in your variant (the list of tasks is not published).
 
 __NOTE__: When implementing a function be careful about callee-saved registers:
 (1) do not modify them at all or (2) save them to the stack and then restore.
 
 ### Example Variant
 
-The function computes the distance between the smallest and the largest element in the array and returns it in (`a0`).
+The function computes the distance between the smallest and
+the largest element in the array and returns it in (`a0`).

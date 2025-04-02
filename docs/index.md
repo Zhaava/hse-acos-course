@@ -82,7 +82,7 @@ Final test for Operating Systems is [here](part2os/final_test.md).
 
 ## Exam
 
-Exam questions are [here](exam_2021.md).
+Exam questions are [here](exam_latest.md).
 
 ## Grading System
 
