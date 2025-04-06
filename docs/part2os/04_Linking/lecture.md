@@ -16,7 +16,7 @@ Slides ([PDF](OS_Lecture_04.pdf), [PPTX](OS_Lecture_04.pptx)).
 * Linked libraries
 * Library interpositioning
 * Position-independent code
-* Address space layout randomization
+* [Address space layout randomization](https://github.com/andrewt0301/hse-acos-course/tree/master/docs/part2os/04_Linking/aslr)
 
 #### Tools for Manipulating Object Files
 
