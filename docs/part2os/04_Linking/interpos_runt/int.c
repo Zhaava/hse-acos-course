@@ -1,10 +1,8 @@
-#include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 
 int main()
 {
     int *p = malloc(32);
     free(p);
-    return(0);
+    return 0;
 }
-
