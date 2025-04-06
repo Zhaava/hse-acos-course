@@ -58,8 +58,8 @@ Examples:
 
 #### Practice
 
-* [Part 1](libs.md).
-* [Part 2](make.md).
+* [Part 1](libs.md) (Static and shared libraries).
+* [Part 2](make.md) (Make files).
 
 ## Homework
 
