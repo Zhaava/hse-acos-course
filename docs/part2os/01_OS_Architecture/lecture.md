@@ -68,7 +68,7 @@ Also, come of the commands are implemented in Terminal of JetBrains IDEs (PyChar
 
 ##### Creating, editing and viewing source code:
 
-1. `cat` - concatnates and prints text files
+1. `cat` - concatenates and prints text files
 1. `head` - outputs the first part of files
 1. `tail` - outputs the last part of files
 1. `nano` - simple console code editor

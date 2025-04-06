@@ -102,7 +102,7 @@ void fred(int arg)
     printf("fred: you passed %d\n", arg);
 }
 ```
- 
+
 __bill.c:__
 ```c
 #include <stdio.h>

@@ -173,7 +173,7 @@ int main() {
    * fills the array with integer values from the standard input;
    * reverses the array;
    * prints the resulting array;
-   * dellocates the array.
+   * deallocates the array.
 
    Notes: use `malloc` and `free` to allocate and deallocate the array respectively.
 
