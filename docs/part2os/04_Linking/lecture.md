@@ -15,6 +15,8 @@ Slides ([PDF](OS_Lecture_04.pdf), [PPTX](OS_Lecture_04.pptx)).
 * Shared libraries
 * Linked libraries
 * Library interpositioning
+* Position-independent code
+* Address space layout randomization
 
 #### Tools for Manipulating Object Files
 
@@ -50,7 +52,7 @@ Examples:
 #### Outline
 
 * Creating static libraries
-* Creating shared librarires
+* Creating shared libraries
 * Library interpositioning
 * Make scripts
 
@@ -71,5 +73,6 @@ Note: interposed functions can just print a message like "fred is called".
 # References
 
 * Linking. Chapter 7 in [[CSPP]](../../books.md).
-* Section 2.6. in [[OSC]](../../books.md).
+* Section 2.5. in [[OSC]](../../books.md).
 * Chapters 41 and 42 in [[TLPI]](../../books.md).
+* [Address space layout randomization](https://en.wikipedia.org/wiki/Address_space_layout_randomization) (Wikipedia).
