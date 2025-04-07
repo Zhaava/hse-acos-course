@@ -181,10 +181,15 @@ Preprocessor:
 
 _lib.h_:
 ```c
+#ifndef LIB
+#define LIB
+
 #ifdef NO_MACRO
-  int max(int a, int b) { return a < b ? a : b; }
+  inline int max(int a, int b) { return a < b ? a : b; }
 #else
-  #define max(a, b) (a) < (b) ? (a) ? (b)
+  #define max(a, b) ((a) < (b) ? (a) : (b))
+#endif
+
 #endif
 ```
 _prog.c_:
