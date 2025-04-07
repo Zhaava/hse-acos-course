@@ -51,6 +51,8 @@ struct point {
 };
 ```
 
+Bitfields:
+
 ```c
 struct point {
     int x;
@@ -79,6 +81,45 @@ int main() {
     printf("sizeof(point)  = %ld\n", sizeof(point_t));
     return 0;
 }   
+```
+
+Unions:
+
+```c
+#include <stdint.h>
+#include <stdio.h>
+
+int main(void) {
+    union S {
+        uint32_t u32;
+        uint16_t u16[2];
+        uint8_t  u8[4];
+    } s = {0x12345678}; // s.u32 is now the active member
+
+    printf("sizeof(s)=%zu\n", sizeof(s));
+    printf("address(s)=%p\n", &s);
+    printf("address(s.u32)=%p\n", &s.u32);
+    printf("address(s.u16)=%p\n", &s.u16);
+    printf("address(s.u8)=%p\n\n", &s.u8);
+    printf("s.u32=%x\n", s.u32);
+    printf("s.u16[0]=%x, s.u16[1]=%x\n", s.u16[0], s.u16[1]);
+    printf("s.u8[0]=%x, s.u8[1]=%x, s.u8[2]=%x, s.u8[3]=%x\n\n", s.u8[0], s.u8[1], s.u8[2], s.u8[3]);
+
+    s.u16[0] = 0x0011; // s.u16 is now the active member
+    printf("s.u32=%x\n", s.u32);
+    printf("s.u16[0]=%x, s.u16[1]=%x\n", s.u16[0], s.u16[1]);
+    printf("s.u32=%x\n", s.u32);
+    printf("s.u8[0]=%x, s.u8[1]=%x, s.u8[2]=%x, s.u8[3]=%x\n\n", s.u8[0], s.u8[1], s.u8[2], s.u8[3]);
+
+    union pad {
+        char  c[5];
+        float f;
+    } p = { .f = 1.23 };
+    printf("sizeof(pad)=%zu\n", sizeof(p));
+    printf("address(p)=%p\n", &p);
+
+    return 0;
+}
 ```
 
 Input/output:
