@@ -3,8 +3,6 @@ Lecture 2
 
 # C Programming Language
 
-__Before Start:__ [Using Linux Ubuntu in the Cloud.](../../software/cloud_ssh.md)
-
 ## Lecture
 
 Slides ([PDF](OS_Lecture_02.pdf), [PPTX](OS_Lecture_02.pptx)).
