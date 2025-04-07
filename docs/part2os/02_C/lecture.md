@@ -32,12 +32,16 @@ long
 unsigned long
 float
 double
-__int8_t
-__int16_t
-__int32_t
-__int64_t
+void
+```
+
+Pointer data types:
+
+```c
 void *
-size_t
+char *
+int *
+long *
 ```
 
 Structures:
