@@ -203,7 +203,8 @@ int main() {
   https://www.pearson.com/us/higher-education/program/Kernighan-C-Programming-Language-2nd-Edition/PGM54487.html)
   2nd Edition. 1988.
 * [C programming language](https://en.wikipedia.org/wiki/C_%28programming_language%29) (Wikipedia)
-* [C data types](https://en.wikipedia.org/wiki/C_data_types)
+* [C data types](https://en.wikipedia.org/wiki/C_data_types) (Wikipedia)
+* [C preprocessor](https://en.wikipedia.org/wiki/C_preprocessor) (Wikipedia)
 * [Function Pointer in C](https://www.geeksforgeeks.org/function-pointer-in-c/)
 * [Dynamic 2-D arrays in C](https://www.geeksforgeeks.org/dynamically-allocate-2d-array-c/)
 * [C reference](https://en.cppreference.com/w/c) on _cppreference.com_
