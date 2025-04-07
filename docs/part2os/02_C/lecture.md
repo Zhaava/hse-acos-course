@@ -179,6 +179,31 @@ int main() {
 }
 ```
 
+Preprocessor:
+
+_lib.h_:
+```c
+#ifdef NO_MACRO
+  int max(int a, int b) { return a < b ? a : b; }
+#else
+  #define max(a, b) (a) < (b) ? (a) ? (b)
+#endif
+```
+_prog.c_:
+```c
+#include "lib.h"
+
+int main() {
+   int x = max(0, -5);
+   return x;
+}
+```
+_Preprocessing:_
+```bash
+gcc prog.c -E # NO_MACRO is not defined
+gcc prog.c -E -DNO_MACRO # NO_MACRO is defined
+```
+
 ## Workshop
 
 #### Outline
