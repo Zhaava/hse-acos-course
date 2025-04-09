@@ -1,7 +1,7 @@
 Lecture 3
 ---
 
-# System calls
+# System Calls
 
 ## Lecture
 
@@ -131,44 +131,16 @@ In Ubuntu 20.04 LTS, more system call declarations can be found in the following
 
 #### Examples
 
-Example 1: Using the `printf` [glibc](https://www.gnu.org/software/libc/) function:
-
-```c
-#include <stdio.h>
-int main () {
-    printf("Hello World\n");
-    return 0;
-}
-```
-
-Example 2: Using the `write` POSIX function:
-
-```c
-#include <fcntl.h>
-#include <unistd.h>
-int main () {
-    write (1, "Hello World\n", 12);
-    return 0;
-}
-```
-
-Example 3: Using the `syscall` function:
-
-```c
-#include <unistd.h>
-#include <sys/syscall.h>
-int main () {
-    syscall (1, 1, "Hello World\n", 12);
-    return 0;
-}
-```
+1. [hello1.c](examples/hello1.c) - using the `printf` [glibc](https://www.gnu.org/software/libc/) function
+2. [hello2.c](examples/hello2.c) - using the `write` POSIX function
+3. [hello3.c](examples/hello3.c) - using the `syscall` function
 
 All the three examples, do the same: they print the “Hello World” message to the console.
 To compile and run them, the following commands need to be executed:
 
-```
-acos@acos-vm:~$ gcc test.c –o test
-acos@acos-vm:~$ ./test
+```bash
+gcc hello1.c –o hello
+./hello
 ```
 
 __System calls in C:__
