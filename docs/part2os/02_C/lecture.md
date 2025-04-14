@@ -221,12 +221,13 @@ gcc prog.c -E -DNO_MACRO # NO_MACRO is defined
 
 #### Outline
 
-* Discuss main features of C and differences between C++ and other languages
+* Discuss main features of C and differences with other languages
 * Discuss questions from [this](disc02.pdf) document
+* Write and debug small programs covering different features of C language.
 
 #### Debugging C programs
 
-* [Workshop on debugger](debugger.md)
+* [Learn how to use GDB to debug simple programs](debugger.md).
 
 #### Tasks
 
@@ -277,6 +278,7 @@ gcc prog.c -E -DNO_MACRO # NO_MACRO is defined
 # References
 
 * Brian Harvey. [CS 61C: C: Introduction, Pointers, & Arrays](HarveyNotesC1-3.pdf) 
+* CS 61C by UC Berkeley. C: Introduction, Pointers. [Slides](lec02.pdf)
 * [KRC] Brian W. Kernighan, Dennis Ritchie.
   [C Programming Language](
   https://www.pearson.com/us/higher-education/program/Kernighan-C-Programming-Language-2nd-Edition/PGM54487.html)
