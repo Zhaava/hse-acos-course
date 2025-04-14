@@ -16,6 +16,64 @@ Slides ([PDF](OS_Lecture_07.pdf), [PPTX](OS_Lecture_07.pptx)).
 * Standard I/0, file descriptors and redirection
 * Function of C standard library (libc) for working with I/0
 
+#### Examples
+
+Copying `stdin` to `stdout`, one byte at a time:
+```c
+#include <unistd.h>
+int main(void) {
+    char c;
+    while(read(STDIN_FILENO, &c, 1) != 0)
+    write(STDOUT_FILENO, &c, 1);
+    return 0;
+}
+```
+
+Accessing file metadata:
+```c
+#include <sys/stat.h>
+#include <stdio.h>
+
+int main (int argc, char **argv) {
+    struct stat st;
+    char *type, *readok;
+    stat(argv[1], &st);
+    if (S_ISREG(st.st_mode)) /* Determine file type */
+        type = "regular";
+    else if (S_ISDIR(st.st_mode))
+        type = "directory";
+    else
+        type = "other";
+    if ((st.st_mode & S_IRUSR)) /* Check read access */
+        readok = "yes";
+    else
+        readok = "no";
+    printf("type: %s, read: %s\n", type, readok);
+    return 0;
+}
+```
+
+Reading a directory to get the list of files (`ls`-like program):
+```c
+#include <sys/types.h>
+#include <dirent.h>
+#include <stdio.h>
+int main(int argc, char *argv[]) {
+    DIR *directory;
+    struct dirent *de;
+    const char *dir_name = argv[1];
+    if (!(directory = opendir(dir_name))) {
+        perror("Failed to open directory");
+        return 1;
+    }
+    while ((de = readdir(directory))) {
+        printf("Found file: %s\n", de->d_name);
+    }
+    closedir(directory);
+    return 0;
+}
+```
+
 ## Workshop
 
 [Workshop: Shell Scripts](../06_Processes/bash.md) 
