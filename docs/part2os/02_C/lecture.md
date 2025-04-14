@@ -287,3 +287,4 @@ gcc prog.c -E -DNO_MACRO # NO_MACRO is defined
 * [Function Pointer in C](https://www.geeksforgeeks.org/function-pointer-in-c/)
 * [Dynamic 2-D arrays in C](https://www.geeksforgeeks.org/dynamically-allocate-2d-array-c/)
 * [C reference](https://en.cppreference.com/w/c) on _cppreference.com_
+* [Typedef](https://en.wikipedia.org/wiki/Typedef) (Wikipedia)
