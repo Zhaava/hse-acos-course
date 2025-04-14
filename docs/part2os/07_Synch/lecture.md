@@ -7,9 +7,11 @@ Lecture 7
 
 Slides ([PDF](OS_Lecture_07.pdf), [PPTX](OS_Lecture_07.pptx)).
 
-<!---
-Outline:
--->
+#### Outline
+
+
+
+
 ## Workshop
 
 [Workshop: Shell Scripts](../06_Processes/bash.md) 
@@ -20,4 +22,5 @@ __TODO__
 
 # References
 
-__TODO__
+* [Filesystem Hierarchy Standard](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard) (Wikipedia)
+* [Overview of the Linux Virtual File System](https://docs.kernel.org/filesystems/vfs.html)
