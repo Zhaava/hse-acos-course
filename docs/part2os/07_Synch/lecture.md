@@ -21,6 +21,7 @@ Slides ([PDF](OS_Lecture_07.pdf), [PPTX](OS_Lecture_07.pptx)).
 Copying `stdin` to `stdout`, one byte at a time:
 ```c
 #include <unistd.h>
+
 int main(void) {
     char c;
     while(read(STDIN_FILENO, &c, 1) != 0)
@@ -58,6 +59,7 @@ Reading a directory to get the list of files (`ls`-like program):
 #include <sys/types.h>
 #include <dirent.h>
 #include <stdio.h>
+
 int main(int argc, char *argv[]) {
     DIR *directory;
     struct dirent *de;
@@ -77,6 +79,7 @@ int main(int argc, char *argv[]) {
 Buffering provided by the standard C library:
 ```
 #include <stdio.h>
+
 int main() {
     printf("h");
     printf("e");
