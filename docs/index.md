@@ -59,7 +59,7 @@ Final test for Computer Architecture is [here](part1ca/final_tests.md).
 ### Operating Systems and System Programming
 
 1. [Operating system architecture. Linux.](part2os/01_OS_Architecture/lecture.md)
-1. [C programming language. GNU tools (GCC, Make).](part2os/02_C/lecture.md)
+1. [C programming language.](part2os/02_C/lecture.md)
 1. [System calls.](part2os/03_SystemCalls/lecture.md)
 1. [Linking and loading. Libraries and binary file format.](part2os/04_Linking/lecture.md)
 1. [Dynamic memory allocation and string handling.](part2os/05_Strings/lecture.md)
