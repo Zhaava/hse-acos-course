@@ -74,6 +74,29 @@ int main(int argc, char *argv[]) {
 }
 ```
 
+Buffering provided by the standard C library:
+```
+#include <stdio.h>
+int main() {
+    printf("h");
+    printf("e");
+    printf("l");
+    printf("l");
+    printf("o");
+    printf("\n");
+    fflush(stdout);
+    return 0;
+}
+```
+
+`strace` utility shows that many `printf` calls result in a single system call `write`:
+```
+strace -e trace=write  ./hello 
+write(1, "hello\n", 6hello
+)                  = 6
++++ exited with 0 +++
+```
+
 ## Workshop
 
 [Workshop: Shell Scripts](../06_Processes/bash.md) 
