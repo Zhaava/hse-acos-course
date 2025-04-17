@@ -18,6 +18,47 @@ Slides ([PDF](OS_Lecture_07.pdf), [PPTX](OS_Lecture_07.pptx)).
 
 #### Examples
 
+Getting information on file system usage:
+
+```bash
+df
+Filesystem     1K-blocks     Used Available Use% Mounted on
+tmpfs            1615192     2420   1612772   1% /run
+/dev/nvme0n1p2 982862268 98898256 833963680  11% /
+tmpfs            8075948   213908   7862040   3% /dev/shm
+tmpfs               5120       12      5108   1% /run/lock
+efivarfs             246      117       125  49% /sys/firmware/efi/efivars
+/dev/nvme0n1p1    523248     6352    516896   2% /boot/efi
+tmpfs            1615188      344   1614844   1% /run/user/1001
+```
+
+Getting information on the disk:
+```bash
+hwinfo --disk
+27: PCI 00.0: 10600 Disk                                        
+  [Created at block.255]
+  Unique ID: wLCS.EJHvc9MwvZ7
+  Parent ID: yoMo.AxGd7hiuG+6
+  SysFS ID: /class/block/nvme0n1
+  SysFS BusID: nvme0
+  SysFS Device Link: /devices/pci0000:00/0000:00:1d.4/0000:3d:00.0/nvme/nvme0
+  Hardware Class: disk
+  Model: "Samsung Electronics NVMe SSD Controller SM981/PM981/PM983"
+  Vendor: pci 0x144d "Samsung Electronics Co Ltd"
+  Device: pci 0xa808 "NVMe SSD Controller SM981/PM981/PM983"
+  SubVendor: pci 0x144d "Samsung Electronics Co Ltd"
+  SubDevice: pci 0xa801 
+  Driver: "nvme"
+  Driver Modules: "nvme"
+  Device File: /dev/nvme0n1
+  Device Files: /dev/nvme0n1, /dev/disk/by-id/nvme-SAMSUNG_MZVLB1T0HBLR-000L7_S4EMNF0MB29472, /dev/disk/by-id/nvme-SAMSUNG_MZVLB1T0HBLR-000L7_S4EMNF0MB29472_1, /dev/disk/by-path/pci-0000:3d:00.0-nvme-1, /dev/disk/by-diskseq/9, /dev/disk/by-id/nvme-eui.0025388b91c8cf4e
+  Device Number: block 259:0
+  BIOS id: 0x80
+  Drive status: no medium
+  Config Status: cfg=new, avail=yes, need=no, active=unknown
+  Attached to: #17 (Non-Volatile memory controller)
+```
+
 Getting information on a file and its file system:
 
 ```bash
@@ -132,7 +173,9 @@ __TODO__
 
 # References
 
+* [df](https://man7.org/linux/man-pages/man1/df.1.html) - utility to report file system space usage
 * [stat](https://man7.org/linux/man-pages/man1/stat.1.html) - utility to display file or file system status
+* File Systems. Chapter 14 in [[TLPI]](../../books.md).
 * System-Level I/O. Chapter 10 in [[CSPP]](../../books.md)
 * [Filesystem Hierarchy Standard](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard) (Wikipedia)
 * [Overview of the Linux Virtual File System](https://docs.kernel.org/filesystems/vfs.html)
