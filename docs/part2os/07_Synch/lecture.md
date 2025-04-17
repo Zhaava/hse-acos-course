@@ -18,6 +18,28 @@ Slides ([PDF](OS_Lecture_07.pdf), [PPTX](OS_Lecture_07.pptx)).
 
 #### Examples
 
+Getting information on a file and its file system:
+
+```bash
+stat hello
+  File: hello
+  Size: 16048     	Blocks: 32         IO Block: 4096   regular file
+Device: 259,2	Inode: 35260199    Links: 1
+Access: (0775/-rwxrwxr-x)  Uid: ( 1001/ andrewt)   Gid: ( 1001/ andrewt)
+Access: 2025-04-14 19:29:20.651015096 +0300
+Modify: 2025-04-14 19:29:16.426873736 +0300
+Change: 2025-04-14 19:29:16.426873736 +0300
+ Birth: 2025-04-14 19:29:16.384872282 +0300
+```
+```bash
+stat hello --file-system
+  File: "hello"
+    ID: 2c46404543853cc9 Namelen: 255     Type: ext2/ext3
+Block size: 4096       Fundamental block size: 4096
+Blocks: Total: 245715567  Free: 221037874  Available: 208537791
+Inodes: Total: 62480384   Free: 61695470
+```
+
 Copying `stdin` to `stdout`, one byte at a time:
 ```c
 #include <unistd.h>
@@ -110,6 +132,7 @@ __TODO__
 
 # References
 
+* [stat](https://man7.org/linux/man-pages/man1/stat.1.html) - utility to display file or file system status
 * System-Level I/O. Chapter 10 in [[CSPP]](../../books.md)
 * [Filesystem Hierarchy Standard](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard) (Wikipedia)
 * [Overview of the Linux Virtual File System](https://docs.kernel.org/filesystems/vfs.html)
