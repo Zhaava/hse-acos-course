@@ -110,6 +110,7 @@ __TODO__
 
 # References
 
+* System-Level I/O. Chapter 10 in [[CSPP]](../../books.md)
 * [Filesystem Hierarchy Standard](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard) (Wikipedia)
 * [Overview of the Linux Virtual File System](https://docs.kernel.org/filesystems/vfs.html)
 * [Inode](https://en.wikipedia.org/wiki/Inode) (Wikipedia)
