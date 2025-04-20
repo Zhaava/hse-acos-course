@@ -9,9 +9,9 @@ First of all let us have a look at the process of building a C program.
 
 It includes the following stages:
 
-* Preprocessor: .c → gcc -E  → .c
-* Translator: .c → gcc -S → .s
-* Assembler: .s → gcc -c → .o
+* Preprocessor: .c → `gcc -E`  → .c
+* Translator: .c → `gcc -S` → .s
+* Assembler: .s → `gcc -c` → .o
 * Linker: .o → gcc or ld → binary executable
 
 If a project consists of many source files (.c), the final binary executable file is linked from many object (.o) files.
@@ -56,7 +56,7 @@ GENERATES=*.o prog
 all:    prog
 
 prog:   f1.o f2.o
-        cc $^ -o $@
+    cc $^ -o $@
 
 f1.o:   f1.c
         cc $< -c

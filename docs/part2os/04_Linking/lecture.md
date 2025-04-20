@@ -9,7 +9,7 @@ Slides ([PDF](OS_Lecture_04.pdf), [PPTX](OS_Lecture_04.pptx)).
 
 #### Outline
 
-* Linking
+* Linking ([example](https://github.com/andrewt0301/hse-acos-course/tree/master/docs/part2os/04_Linking/linking))
 * Relocatable object files
 * Executable and Linkable Format (ELF)
 * Shared libraries
