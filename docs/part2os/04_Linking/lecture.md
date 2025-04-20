@@ -84,7 +84,7 @@ Disassembly of section .text:
 `main` (executable object file):
 ```
 riscv64-unknown-linux-gnu-gcc -o main main.o sum.o
-riscv64-unknown-linux-gnu-objdump -r -d main
+riscv64-unknown-linux-gnu-objdump -x -d main
 
 main:     file format elf64-littleriscv
 
