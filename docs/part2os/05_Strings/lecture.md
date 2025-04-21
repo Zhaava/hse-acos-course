@@ -45,5 +45,4 @@ function to allocated additional space.
 # References
 
 * [C dynamic memory allocation](https://en.wikipedia.org/wiki/C_dynamic_memory_allocation) (Wikipedia)
-* Jeffrey Friedl [Mastering Regular Expressions](http://regex.info/book.html) (aka The Owl Book).
-* [regex101: build, test, and debug regex](https://regex101.com)
+* [Malloc tutorial](https://danluu.com/malloc-tutorial/)
