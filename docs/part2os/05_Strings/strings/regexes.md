@@ -187,8 +187,3 @@ int main(void) {
    exit(EXIT_SUCCESS);
 }
 ```
-
-# References
-
-* Jeffrey Friedl [Mastering Regular Expressions](http://regex.info/book.html) (aka The Owl Book).
-* [regex101: build, test, and debug regex](https://regex101.com)
