@@ -24,6 +24,9 @@ See the Homework in the workshop materials.
 
 # References
 
-* Dynamic Memory Allocation. Section 9.9 in [[CSPP]](../../books.md).
+* Dynamic Memory Allocation. Section 9.9 in [[CSPP]](../../books.md)
+* Interlude: Memory API. Chapter 14 in [[COMET]](../../books.md)
+* Free-Space Management. Chapter 17 in [[COMET]](../../books.md)
+* Memory Allocation. Chapter 7 in [[TLPI]](../../books.md)
 * [C dynamic memory allocation](https://en.wikipedia.org/wiki/C_dynamic_memory_allocation) (Wikipedia)
 * [Malloc tutorial](https://danluu.com/malloc-tutorial/)
