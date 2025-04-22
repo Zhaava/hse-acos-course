@@ -20,6 +20,9 @@ The courses are listed in the order of decreasing relevance.
   [Slides.](https://github.com/andrewt0301/hse-acos-course/tree/master/related/MIT_6004/slides)
   MIT. 2019.
 
+- Matthew Flatt. [CS 4400 – Computer Systems](https://my.eng.utah.edu/~cs4400/)
+  The University of Utah. 2018.
+
 - Charles Leiserson and Julian Shun. [MIT 6.172: Performance Engineering of Software Systems.](
   https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-172-performance-engineering-of-software-systems-fall-2018)
   MIT. 2018.
