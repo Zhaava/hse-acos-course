@@ -30,3 +30,5 @@ See the Homework in the workshop materials.
 * Memory Allocation. Chapter 7 in [[TLPI]](../../books.md)
 * [C dynamic memory allocation](https://en.wikipedia.org/wiki/C_dynamic_memory_allocation) (Wikipedia)
 * [Malloc tutorial](https://danluu.com/malloc-tutorial/)
+* [Memory Allocators](https://github.com/mtrebi/memory-allocators)
+* [jemalloc](https://jemalloc.net/) (example of malloc implementation)
