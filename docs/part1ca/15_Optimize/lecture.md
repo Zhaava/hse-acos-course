@@ -103,7 +103,6 @@ See the RISC-V options for GCC [here](https://gcc.gnu.org/onlinedocs/gcc/RISC-V-
 #### Examples
 
 1. Inlining and constant folding.
-
 ```C
 #include <stdio.h>
 
@@ -127,12 +126,11 @@ int main() {
 * Add the `inline` directive to the function declarations. What happens after you do this?
 * Modify the program so that `x` and `y` are read from the user input. How does it affect optimizations? 
 
-2. Loop unrolling.
-
+1. Loop unrolling.
 ```C
 #include <stdio.h>
 
-void fcopy(char source[256], char target[256]) {
+void fcopy(char *source, char *target) {
     for (int i = 0; i < 256; ++i) {
        target[i] = source[i];
     }
@@ -147,11 +145,9 @@ int main() {
     return 0;
 }
 ```
-
 * Compile the program without optimizations and then with optimizations (`-03`). See the difference.
 
-3. Memory accesses.
-
+1. Memory accesses.
 ```C
 #include <stdio.h>
 
@@ -170,17 +166,9 @@ int main() {
     return 0;
 }
 ```
-
 * Compile the program without optimizations and then with optimizations (`-01`). See the difference.
 
-4. Branch prediction.
-
-Use `[[likely]]` and `[[unlikely]]` C++ attributes or C macros
-```C
-#define likely(x)      __builtin_expect(!!(x), 1) 
-#define unlikely(x)    __builtin_expect(!!(x), 0) 
-```
-to modify the program structure:
+1. Branch prediction.
 ```C
 int test(int a, int b) {
     if (a < b) [[unlikely]] {
@@ -194,10 +182,15 @@ int test(int a, int b) {
     }    
 }
 ```
+Use `[[likely]]` and `[[unlikely]]` C++ attributes or C macros to modify the program structure.
+```C
+#define likely(x)      __builtin_expect(!!(x), 1) 
+#define unlikely(x)    __builtin_expect(!!(x), 0) 
+```
 The idea: the standard branch prediction heuristic assumes that a forward branch is always taken.
-This means that the instructions of the "IF" branch will be fetched by the CPU.
-However, we can mark the conditions as _inlikely_ and the compiler will change the program structure
-in such a way that the "ELSE" branch instructions will be fetched by the CPU.
+This means that the instructions of the `if` branch will be fetched by the CPU.
+However, we can mark the conditions as _unlikely_ and the compiler will change the program structure
+in such a way that the `else` branch instructions will be fetched by the CPU.
 
 * Compile the program with and without `[[unlikely]]`, replace it with with `[[likely]]`, and see the difference.
 
