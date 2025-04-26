@@ -197,10 +197,10 @@ See the RISC-V options for GCC [here](https://gcc.gnu.org/onlinedocs/gcc/RISC-V-
 
    The idea: the standard branch prediction heuristic assumes that a forward branch is always taken.
    This means that the instructions of the `if` branch will be fetched by the CPU.
-   However, we can mark the conditions as _unlikely_ and the compiler will change the program structure
+   However, we can mark the condition as _unlikely_ and the compiler will change the program structure
    in such a way that the `else` branch instructions will be fetched by the CPU.
 
-   * Compile the program with and without `[[unlikely]]`, replace it with with `[[likely]]`, and see the difference.
+   * Compile the program marking different branches with `[[unlikely]]`/`[[likely]]` and see the difference.
 
 #### Tasks
 
