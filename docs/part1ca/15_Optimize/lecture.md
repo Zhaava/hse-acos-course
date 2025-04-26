@@ -231,3 +231,5 @@ Finish all the tasks.
 * [Loop-invariant code motion](https://en.wikipedia.org/wiki/Loop-invariant_code_motion) (Wikipedia).
 * [Profiling](https://en.wikipedia.org/wiki/Profiling_%28computer_programming%29) (Wikipedia).
 * [Program optimization](https://en.wikipedia.org/wiki/Program_optimization) (Wikipedia).
+* [Branch prediction macros in GCC](https://www.geeksforgeeks.org/branch-prediction-macros-in-gcc/) (GeeksForGeeks).
+* [C++ attribute: likely, unlikely (since C++20)](https://en.cppreference.com/w/cpp/language/attributes/likely).
