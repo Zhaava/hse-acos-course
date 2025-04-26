@@ -127,7 +127,7 @@ int main() {
 * Add the `inline` directive to the function declarations. What happens after you do this?
 * Modify the program so that `x` and `y` are read from the user input. How does it affect optimizations? 
 
-1. Loop unrolling.
+2. Loop unrolling.
 
 ```C
 #include <stdio.h>
@@ -150,7 +150,7 @@ int main() {
 
 * Compile the program without optimizations and then with optimizations (`-03`). See the difference.
 
-1. Memory accesses.
+3. Memory accesses.
 
 ```C
 #include <stdio.h>
@@ -173,7 +173,7 @@ int main() {
 
 * Compile the program without optimizations and then with optimizations (`-01`). See the difference.
 
-1. Branch prediction.
+4. Branch prediction.
 
 Use `[[likely]]` and `[[unlikely]]` C++ attributes or C macros
 ```C
