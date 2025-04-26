@@ -103,96 +103,104 @@ See the RISC-V options for GCC [here](https://gcc.gnu.org/onlinedocs/gcc/RISC-V-
 #### Examples
 
 1. Inlining and constant folding.
-```C
-#include <stdio.h>
 
-int square(int x) {
-   return x * x;
-}
+   ```C
+   #include <stdio.h>
+  
+   int square(int x) {
+       return x * x;
+   }
+    
+   int add(int x, int y) {
+       return x + y;
+   }
+    
+   int main() {
+       int x = 10;
+       int y = 5;
+       int z = add(square(x), y);
+       printf("Result = %d\n", z);
+       return 0;
+   }
+   ```
 
-int add(int x, int y) {
-    return x + y;
-}
-
-int main() {
-    int x = 10;
-    int y = 5;
-    int z = add(square(x), y);
-    printf("Result = %d\n", z);
-    return 0;
-}
-```
-* Compile the program without optimizations and then with optimizations. See the difference.
-* Add the `inline` directive to the function declarations. What happens after you do this?
-* Modify the program so that `x` and `y` are read from the user input. How does it affect optimizations? 
+   * Compile the program without optimizations and then with optimizations. See the difference.
+   * Add the `inline` directive to the function declarations. What happens after you do this?
+   * Modify the program so that `x` and `y` are read from the user input. How does it affect optimizations? 
 
 1. Loop unrolling.
-```C
-#include <stdio.h>
 
-void fcopy(char *source, char *target) {
-    for (int i = 0; i < 256; ++i) {
-       target[i] = source[i];
-    }
-}
-
-int main() {
-    char in[256];
-    scanf("%s", in);
-    char out[256];
-    fcopy(in, out);
-    printf("Result = %s\n", out);
-    return 0;
-}
-```
-* Compile the program without optimizations and then with optimizations (`-03`). See the difference.
+   ```C
+   #include <stdio.h>
+ 
+   void fcopy(char *source, char *target) {
+       for (int i = 0; i < 256; ++i) {
+          target[i] = source[i];
+       }
+   }
+    
+   int main() {
+       char in[256];
+       scanf("%s", in);
+       char out[256];
+       fcopy(in, out);
+       printf("Result = %s\n", out);
+       return 0;
+   }
+   ```
+   * Compile the program without optimizations and then with optimizations (`-03`). See the difference.
 
 1. Memory accesses.
-```C
-#include <stdio.h>
 
-void add (int x, int y, int z, int *result) {
-    *result += x;
-    *result += y;
-    *result += z;
-}
-
-int main() {
-    int x, y, z;
-    scanf("%d%d%d", &x, &y, &z);
-    int result;
-    add(x, y, z, &result);
-    printf("Result=%d\n", result);
-    return 0;
-}
-```
-* Compile the program without optimizations and then with optimizations (`-01`). See the difference.
+   ```C
+   #include <stdio.h>
+  
+   void add (int x, int y, int z, int *result) {
+       *result += x;
+       *result += y;
+       *result += z;
+   }
+    
+   int main() {
+       int x, y, z;
+       scanf("%d%d%d", &x, &y, &z);
+       int result;
+       add(x, y, z, &result);
+       printf("Result=%d\n", result);
+       return 0;
+   }
+   ```
+   * Compile the program without optimizations and then with optimizations (`-01`). See the difference.
 
 1. Branch prediction.
-```C
-int test(int a, int b) {
-    if (a < b) [[unlikely]] {
-        int x = a * 16 + 7;
-        int y = b / 2 + 4;
-        return x / y;
-    } else {
-        int x = a * 2 + 1;
-        int y = b * 3 + 2;
-        return x * y;
-    }    
-}
-```
-Use `[[likely]]` and `[[unlikely]]` C++ attributes or C macros to modify the program structure.
-```C
-#define likely(x)      __builtin_expect(!!(x), 1) 
-#define unlikely(x)    __builtin_expect(!!(x), 0) 
-```
-The idea: the standard branch prediction heuristic assumes that a forward branch is always taken.
-This means that the instructions of the `if` branch will be fetched by the CPU.
-However, we can mark the conditions as _unlikely_ and the compiler will change the program structure
-in such a way that the `else` branch instructions will be fetched by the CPU.
 
-* Compile the program with and without `[[unlikely]]`, replace it with with `[[likely]]`, and see the difference.
+   ```C
+   int test(int a, int b) {
+       if (a < b) [[unlikely]] {
+           int x = a * 16 + 7;
+           int y = b / 2 + 4;
+           return x / y;
+       } else {
+           int x = a * 2 + 1;
+           int y = b * 3 + 2;
+           return x * y;
+       }    
+   }
+   ```
+
+   Use `[[likely]]` and `[[unlikely]]` C++ attributes or C macros to modify the program structure.
+
+   ```C
+   #define likely(x)      __builtin_expect(!!(x), 1) 
+   #define unlikely(x)    __builtin_expect(!!(x), 0) 
+   ```
+
+   The idea: the standard branch prediction heuristic assumes that a forward branch is always taken.
+   This means that the instructions of the `if` branch will be fetched by the CPU.
+   However, we can mark the conditions as _unlikely_ and the compiler will change the program structure
+   in such a way that the `else` branch instructions will be fetched by the CPU.
+
+   * Compile the program with and without `[[unlikely]]`, replace it with with `[[likely]]`, and see the difference.
 
 #### Tasks
 
