@@ -65,6 +65,8 @@ Functions
 
 #### Using the RISC-V Toolchain
 
+_Note: If the toolchain is unavailable, use compiler explorer [Godbolt](https://godbolt.org/)._
+
 1. Run the [Linux Ubuntu 20.04 LTS with RISC-V toolchain](../../software/ubuntu.md) VM in your VirtualBox.
 
 1. Use the password `acos2020` to log in and open the Bash terminal.
@@ -170,6 +172,34 @@ int main() {
 ```
 
 * Compile the program without optimizations and then with optimizations (`-01`). See the difference.
+
+1. Branch prediction.
+
+Use `[[likely]]` and `[[unlikely]]` C++ attributes or C macros
+```C
+#define likely(x)      __builtin_expect(!!(x), 1) 
+#define unlikely(x)    __builtin_expect(!!(x), 0) 
+```
+to modify the program structure:
+```C
+int test(int a, int b) {
+    if (a < b) [[unlikely]] {
+        int x = a * 16 + 7;
+        int y = b / 2 + 4;
+        return x / y;
+    } else {
+        int x = a * 2 + 1;
+        int y = b * 3 + 2;
+        return x * y;
+    }    
+}
+```
+The idea: the standard branch prediction heuristic assumes that a forward branch is always taken.
+This means that the instructions of the "IF" branch will be fetched by the CPU.
+However, we can mark the conditions as _inlikely_ and the compiler will change the program structure
+in such a way that the "ELSE" branch instructions will be fetched by the CPU.
+
+* Compile the program with and without `[[unlikely]]`, replace it with with `[[likely]]`, and see the difference.
 
 #### Tasks
 
