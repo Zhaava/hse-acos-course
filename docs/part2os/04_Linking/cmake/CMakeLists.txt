@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(greet LANGUAGES C)
+project(main LANGUAGES C)
 
 add_library(bill STATIC bill.c)
 add_library(fred SHARED fred.c)
