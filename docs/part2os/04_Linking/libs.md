@@ -47,10 +47,9 @@ hello: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linke
 
 ### Simple application
 
-The 'hello.c' listing:
-
+__hello.c:__
 ```c
-﻿#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 int main()
