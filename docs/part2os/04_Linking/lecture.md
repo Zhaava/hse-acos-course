@@ -162,7 +162,7 @@ Examples:
 
 * [Part 1](libs.md) (Static and shared libraries).
 * [Part 2](make.md) (Make files).
-* [Part 3](./cmake) (CMake).
+* [Part 3](cmake/CMakeLists.txt) (CMake).
 
 ## Homework
 
