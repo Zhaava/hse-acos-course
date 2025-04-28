@@ -11,6 +11,7 @@ Slides ([PDF](OS_Lecture_11.pdf), [PPTX](OS_Lecture_11.pptx)).
 
 * TODO
 * [Java Virtual Machine](java.md)
+* [Python Virtual Machine](python.md)
 
 ## Workshop
 
