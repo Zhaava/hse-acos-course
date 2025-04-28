@@ -2,7 +2,7 @@ Linux Utility Programs and Bash
 ---
 
 Unix-based systems (such as Linux and MacOS) provide utility programs to perform various systems tasks.
-These utilities are via command-line interface.
+These utilities are used via command-line interface.
 Bash is command-line processor and language used to execute these command. 
 Bash is supported in Linux and MacOS. In Windows, a partial support is implemented in Git Bash. 
 Also, come of the commands are implemented in Terminal of JetBrains IDEs (PyCharm, IntelliJ IDEA, CLion, etc.).
@@ -26,15 +26,16 @@ Also, come of the commands are implemented in Terminal of JetBrains IDEs (PyChar
 
 ## Installing additional programs in Linux Ubuntu
 
-   ```bash
-   acos@acos-vm:~$ su
-   root@acos-vm:/home/acos# apt install mc
-   root@acos-vm:/home/acos# exit
-   ```
+Midnight Commander file manager:
+```bash
+acos@acos-vm:~$ sudo apt install mc
+```
+1. `sudo` helps execute a command as a super user
+1. `apt` is a Linux package manager
 
 ## Creating, editing and viewing source code:
 
-1. `cat` - concatnates and prints text files
+1. `cat` - concatenates and prints text files
 1. `head` - outputs the first part of files
 1. `tail` - outputs the last part of files
 1. `nano` - simple console code editor
@@ -43,26 +44,43 @@ Also, come of the commands are implemented in Terminal of JetBrains IDEs (PyChar
 
 ## Compiling and running programs in C
 
-1. Use the following commands (work in MacOS too).
+Use the following commands (work in MacOS too).
 
-   Compiling:
-   ```bash
-   gcc hello.c -o hello.c
-   ```
+Compiling:
+```bash
+gcc hello.c -o hello.c
+```
 
-   Running:
-   ```bash
-   ./hello
-   ```
+Running:
+```bash
+./hello
+```
 
-# Getting information on CPU configuration
+## Getting information on CPU configuration
 
-  Using utility `lscpu`:
-  ```bash
-  lscpu
-  ```
+Using utility `lscpu`:
+```bash
+lscpu
+```
 
-  Viewing virtual file `/proc/cpuinfo`:
-  ```bash
-  less /proc/cpuinfo
-  ```
+Viewing virtual file `/proc/cpuinfo`:
+```bash
+less /proc/cpuinfo
+```
+
+## Getting information on the computer and OS
+
+Using utility `uname` to get system information:
+```bash
+uname -a
+```
+
+Viewing virtual file `/proc/version`:
+```bash
+cat /proc/version
+```
+
+Using utility `hostnamectl` to get information on the computer:
+```bash
+hostnamectl
+```
