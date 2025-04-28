@@ -11,7 +11,7 @@ Slides ([PDF](OS_Lecture_01.pdf), [PPTX](OS_Lecture_01.pptx)).
 
 #### Outline
 
-* [Installing](../../software/ubuntu_install.md) and [using]((../../software/ubuntu.md)) Linux Ubuntu in VirtualBox
+* [Installing](../../software/ubuntu_install.md) and [using](../../software/ubuntu.md) Linux Ubuntu in VirtualBox
 * Installing Git Bash (for Windows users)
 * Learning main Bash commands
 * Using Git
