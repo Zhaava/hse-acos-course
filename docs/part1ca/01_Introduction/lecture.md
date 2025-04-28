@@ -37,7 +37,8 @@ Slides ([PDF](CA_Lecture_01.pdf), [PPTX](CA_Lecture_01.pptx)).
 * Generate [SSH keys](../../software/cloud_ssh.md) for access to Cloud and GitHub.
   Save the public key to the [table](
   https://docs.google.com/spreadsheets/d/1KVsUGHUl74Pfrx0GYiF2V-Cw0mFbVQ3428475FQKsDE/edit?usp=sharing).
-* [Create](git.md) a private GitHub repository and give access to it to the workshop instructor and teaching assistant.
+* [Create](../../software/git.md) a private GitHub repository and give access to it to
+  the workshop instructor and teaching assistant.
    * Name it `<group>_<surname>`, e.g. `204_tatarnikov` 
 * Download, compile, and run matrix computation examples:
    * [Python](matrix.py)
@@ -72,7 +73,7 @@ Information on useful Linux and MacOS command-line tools can be found [here](bas
 
 ##### Git and GitHub
 
-Notes on how to work with GitHub and Git can be found [here](git.md). 
+Notes on how to work with GitHub and Git can be found [here](../../software/git.md). 
 
 #### Example
 

@@ -4,6 +4,7 @@ This page contains a list of software tools that will be used in seminars and ho
 
 ## Contents
 
+* [Git and GitHub](#git)
 * [RARS](#rars)
 * [VirtualBox](#virtualbox)
 * [Linux Ubuntu](#linux-ubuntu)
@@ -11,6 +12,10 @@ This page contains a list of software tools that will be used in seminars and ho
 * [QEMU](#qemu)
 * [Docker](#docker)
 * [WSL](#wsl)
+
+## Git and GitHub
+
+We will use GitHub and Git to submit some homeworks. More details are [here](software/git.md).
 
 ## RARS
 
