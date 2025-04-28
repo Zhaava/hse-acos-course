@@ -60,26 +60,26 @@ Specify the passphrase for the keys. The keys will be generated in the following
 5. Create or copy the `hello.c` program to this folder.
 
 6. Check the status of files in the Git repository:
-    ```bash
-    git status
-    ```
+   ```bash
+   git status
+   ```
 
 7. Add the `hello.c` file to the commit:
-    ```bash
-    git add hello.c
-    ```
+   ```bash
+   git add hello.c
+   ```
 
 8. Send the commit to the repository:
-    ```bash
-    git commit -s -m "hello.c is added"
-    ```
+   ```bash
+   git commit -s -m "hello.c is added"
+   ```
 
 9. Update the remote repository (GitHub): 
-    ```bash
-    git push origin main
-    ```
+   ```bash
+   git push origin main
+   ```
 
 10. Get changes from the remote repository (GitHub): 
-    ```bash
-    git pull
-    ```
+   ```bash
+   git pull
+   ```
