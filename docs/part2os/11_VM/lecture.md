@@ -27,3 +27,5 @@ __TODO__
 * [Hypervisor](https://en.wikipedia.org/wiki/Hypervisor) (Wikipedia).  
 * [VirtualBox](https://en.wikipedia.org/wiki/VirtualBox) (Wikipedia).
 * [QEMU](https://en.wikipedia.org/wiki/QEMU) (Wikipedia).
+* [Windows Subsystem for Linux](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux) and
+  [Hyper-V](https://en.wikipedia.org/wiki/Hyper-V) (Wikipedia).
