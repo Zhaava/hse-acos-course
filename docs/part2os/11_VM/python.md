@@ -52,6 +52,10 @@ z=3.0
 # References
 
 * [Disassembler for Python bytecode](https://docs.python.org/id/3.9/library/dis.html)
-* [CPython Internals Documentation: The bytecode interpreter](https://github.com/python/cpython/blob/main/InternalDocs/interpreter.md)
+* [CPython Internals Documentation: The bytecode interpreter](
+  https://github.com/python/cpython/blob/main/InternalDocs/interpreter.md)
 * Brandt Bucher. [A tour of CPython's bytecode compiler](
   https://github.com/brandtbucher/brandtbucher/blob/master/2023/03/14/a_tour_of_cpythons_bytecode_compiler.pdf)
+* Obi Ike-Nwosu. [Inside The Python Virtual Machine](https://leanpub.com/insidethepythonvirtualmachine/read)
+
+  
