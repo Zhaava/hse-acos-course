@@ -57,5 +57,7 @@ z=3.0
 * Brandt Bucher. [A tour of CPython's bytecode compiler](
   https://github.com/brandtbucher/brandtbucher/blob/master/2023/03/14/a_tour_of_cpythons_bytecode_compiler.pdf)
 * Obi Ike-Nwosu. [Inside The Python Virtual Machine](https://leanpub.com/insidethepythonvirtualmachine/read)
+* [PEP 744 – JIT Compilation](https://peps.python.org/pep-0744/)
+
 
   
