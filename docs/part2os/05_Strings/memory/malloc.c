@@ -6,26 +6,56 @@
 
 #include "trace.h"
 
-#define CHUNKSIZE (1 << 12) // 4096
+//------------------------ Heap Management Functions -------------------------//
 
-static void *heap_start;
-static void *heap_end;
+// Size of chunk to be requested from OS. 4096 is memory page size.
+#define CHUNKSIZE (1 << 12)
 
-static void heap_extend(size_t size);
+// Moves a pointer forward by the specified number of bytes.
+#define PTR_ADD(p, offset) (((char *) p) + offset)
+
+// Start of reserved memory region.
+static void *m_start;
+// End of reserved memory region.
+static void *m_end;
+// Current position (between area used for blocks and unused memory).
+static void *m_curr;
+
+// Requests a chunk of memory for the heap from the OS.
+static void *request_chunk() {
+   void *start = sbrk(0);
+   void *ptr = sbrk(CHUNKSIZE);
+   assert(start == ptr);
+   return ptr;
+}
+
+// Requests a block of the specified size. Extends the heap if needed.
+static void *request_block(size_t size) {
+  while (m_curr + size > m_end) {
+    void *ptr = request_chunk();
+    assert(m_end == ptr);
+    m_end = PTR_ADD(m_end, CHUNKSIZE);
+  }
+  void *bp = m_curr;
+  m_curr = PTR_ADD(m_curr, size);
+  return bp;
+}
+
+//----------------------------------------------------------------------------//
+
+void __attribute__ ((constructor)) malloc_module_init(void) {
+  trace("malloc module is initialized\n");
+  m_start = request_chunk();
+  m_curr = m_start;
+  m_end = PTR_ADD(m_start, CHUNKSIZE);
+  trace("start=%p\nend=  %p\n", m_start, m_end);
+}
+
 static void *find_fit(size_t size);
 static void place(void *bp, size_t size);
 static void *coalesce(void *bp);
 
-void __attribute__ ((constructor)) malloc_init(void) {
-  trace("malloc is initialized\n");
-  heap_start = sbrk(0);
-  void *ptr = sbrk(4096);
-  heap_end = ((char *) start) + 4096;
-  assert(start == ptr);
-  trace("start=%p\nend=  %p\n", heap_start, heap_end);
-}
-
-//---------------------------- Public Functions ------------------------------//
+//---------------------------- Malloc Functions ------------------------------//
 
 void *malloc(size_t size) {
   if (size == 0) {
