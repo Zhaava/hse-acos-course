@@ -41,7 +41,67 @@ static void *request_block(size_t size) {
   return bp;
 }
 
-//----------------------------------------------------------------------------//
+//-------------------------- Block Management --------------------------------//
+
+// Type for storing header/footer
+typedef unsigned int word_t;
+
+// Word and header/footer size (bytes)
+#define WSIZE sizeof(word_t)
+// Double word size (bytes)
+#define DSIZE (WSIZE << 1)
+
+// Pack size and allocated bit into a word
+#define PACK(size, alloc) ((size) | (alloc))
+
+// Read and write a word at address p
+#define GET(p) (*(word_t *)(p))
+#define PUT(p, val) (*(word_t *)(p) = (val))
+
+// Read the size and allocated fields from address p
+#define GET_SIZE(p) (GET(p) & ~0x7) // Excluding 3 lowest bits, always power of 8
+#define GET_ALLOC(p) (GET(p) & 0x1) // Lowest bit
+
+// Given block ptr bp, compute address of its header and footer
+#define HDRP(bp) ((char *)(bp) - WSIZE)
+#define FTRP(bp) ((char *)(bp) + GET_SIZE(HDRP(bp)) - DSIZE)
+
+// Given block ptr bp, compute address of next and previous blocks
+#define NEXT_BLKP(bp) ((char *)(bp) + GET_SIZE(((char *)(bp) - WSIZE)))
+#define PREV_BLKP(bp) ((char *)(bp) - GET_SIZE(((char *)(bp) - DSIZE)))
+
+/*
+static void *find_fit(size_t size);
+static void place(void *bp, size_t size) {}
+*/
+
+static void *coalesce(void *curr) {
+  void *prev = PREV_BLKP(curr);
+  void *next = NEXT_BLKP(curr);
+  word_t prev_alloc = GET_ALLOC(FTRP(prev));
+  word_t next_alloc = GET_ALLOC(HDRP(next));
+  word_t size = GET_SIZE(HDRP(curr));
+  if (prev_alloc && next_alloc) { // Case 1
+    return curr;
+  } else if (prev_alloc && !next_alloc) { // Case 2
+    size += GET_SIZE(HDRP(next));
+    PUT(HDRP(curr), size);
+    PUT(FTRP(curr), size);
+  } else if (!prev_alloc && next_alloc) { // Case 3
+    size += GET_SIZE(HDRP(prev));
+    PUT(FTRP(curr), size);
+    PUT(HDRP(prev), size);
+    curr = prev;
+  } else { // Case 4
+    size += GET_SIZE(HDRP(prev)) + GET_SIZE(FTRP(next));
+    PUT(HDRP(prev), size);
+    PUT(FTRP(next), size);
+    curr = prev;
+  }
+  return curr;
+}
+
+//---------------------------- Malloc Functions ------------------------------//
 
 void __attribute__ ((constructor)) malloc_module_init(void) {
   trace("malloc module is initialized\n");
@@ -50,12 +110,6 @@ void __attribute__ ((constructor)) malloc_module_init(void) {
   m_end = PTR_ADD(m_start, CHUNKSIZE);
   trace("start=%p\nend=  %p\n", m_start, m_end);
 }
-
-static void *find_fit(size_t size);
-static void place(void *bp, size_t size);
-static void *coalesce(void *bp);
-
-//---------------------------- Malloc Functions ------------------------------//
 
 void *malloc(size_t size) {
   if (size == 0) {
@@ -68,7 +122,10 @@ void *malloc(size_t size) {
 
 void free(void *ptr) {
   trace("free(%p)\n", ptr);
-  // TODO
+  word_t size = GET_SIZE(HDRP(ptr)); // Reset alloc
+  PUT(HDRP(ptr), size);
+  PUT(FTRP(ptr), size);
+  coalesce(ptr);
 }
 
 void *calloc(size_t nmemb, size_t size) {
