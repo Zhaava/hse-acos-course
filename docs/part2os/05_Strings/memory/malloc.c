@@ -71,10 +71,6 @@ typedef unsigned int word_t;
 #define NEXT_BLKP(bp) ((char *)(bp) + GET_SIZE(((char *)(bp) - WSIZE)))
 #define PREV_BLKP(bp) ((char *)(bp) - GET_SIZE(((char *)(bp) - DSIZE)))
 
-/*
-static void *find_fit(size_t size);
-*/
-
 static size_t align(size_t size) {
   return DSIZE * ((size + DSIZE + (DSIZE - 1)) / DSIZE);
 }
@@ -122,6 +118,10 @@ static void *coalesce(void *curr) {
     curr = prev;
   }
   return curr;
+}
+
+static void *find_fit(size_t size) {
+  return NULL;
 }
 
 //---------------------------- Malloc Functions ------------------------------//
