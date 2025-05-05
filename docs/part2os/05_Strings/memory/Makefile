@@ -1,7 +1,7 @@
 all: malloc test
 
 malloc:
-	gcc -Wall -shared -fpic -o libmalloc.so malloc.c -ldl
+	gcc -Wall -g -shared -fpic -o libmalloc.so malloc.c -ldl
 test:
 	gcc test.c -o test
 run:
