@@ -75,6 +75,10 @@ typedef unsigned int word_t;
 static void *find_fit(size_t size);
 */
 
+static size_t align(size_t size) {
+  return DSIZE * ((size + DSIZE + (DSIZE - 1)) / DSIZE);
+}
+
 static void place(void *bp, size_t asize) {
   void *hdr = HDRP(bp);
   void *ftr = FTRP(bp);
@@ -135,6 +139,10 @@ void *malloc(size_t size) {
     return NULL;
   }
   void *ptr = NULL;
+  size_t asize = align(size);
+  if ((ptr = find_fit(asize)) != NULL) {
+    place(ptr, asize);
+  }
   trace("malloc(%zu) = %p\n", size, ptr);
   return ptr;
 }
