@@ -11,8 +11,9 @@
 // Size of chunk to be requested from OS. 4096 is memory page size.
 #define CHUNKSIZE (1 << 12)
 
-// Moves a pointer forward by the specified number of bytes.
+// Moves a pointer forward/backward by the specified number of bytes.
 #define PTR_ADD(p, offset) (((char *) p) + offset)
+#define PTR_SUB(p, offset) (((char *) p) - offset)
 
 // Start of reserved memory region.
 static void *m_start;
@@ -72,8 +73,26 @@ typedef unsigned int word_t;
 
 /*
 static void *find_fit(size_t size);
-static void place(void *bp, size_t size) {}
 */
+
+static void place(void *bp, size_t asize) {
+  void *hdr = HDRP(bp);
+  void *ftr = FTRP(bp);
+  size_t bsize = GET_SIZE(hdr); // Block size.
+  assert(asize <= bsize);
+  size_t rsize = bsize - asize; // Remaining size.
+  if (rsize >= DSIZE) { // Split the block.
+    void *rhdr = PTR_ADD(hdr, asize);
+    void *aftr = PTR_SUB(rhdr, WSIZE);
+    PUT(hdr, asize | 1); // Allocated header.
+    PUT(aftr, asize | 1); // Allocated footer.
+    PUT(rhdr, rsize); // Remaining header.
+    PUT(ftr, rsize); // Remaining footer.
+  } else { // Do not change the block size.
+    PUT(hdr, bsize | 1);
+    PUT(ftr, bsize | 1);
+  }
+}
 
 static void *coalesce(void *curr) {
   void *prev = PREV_BLKP(curr);
