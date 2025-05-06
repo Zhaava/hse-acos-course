@@ -44,6 +44,8 @@ typedef unsigned int word_t;
 
 // Heap information data structure.
 typedef struct {
+  // Variable for spinlock.
+  int lock;
   // Start of reserved memory region.
   void *start;
   // End of reserved memory region.
@@ -54,6 +56,10 @@ typedef struct {
 
 // Stores heap information.
 static heap_t g_heap = {0};
+
+#define HEAP_LOCK while(__atomic_test_and_set(&g_heap.lock, __ATOMIC_RELAXED)) {}
+
+#define HEAP_UNLOCK __atomic_clear(&g_heap.lock, __ATOMIC_RELAXED);
 
 // Prints information on all heap blocks.
 #ifndef NDEBUG
@@ -156,7 +162,6 @@ static void *coalesce(void *ptr) {
 
 // Finds a suitable empty block (first-fit).
 static void *find_fit(size_t size) {
-  trace("find_fit(%zu)\n", size);
   if (g_heap.head == NULL) {
     heap_init();
   }
@@ -179,12 +184,14 @@ void *malloc(size_t size) {
     return NULL;
   }
   size_t asize = ALIGNED_SIZE(size, DSIZE) + DSIZE;
+  HEAP_LOCK
   void *ptr = find_fit(asize);
   if (!ptr) {
     ptr = heap_extend(asize);
     ptr = coalesce(ptr);
   }
   place(ptr, asize);
+  HEAP_UNLOCK
   trace("malloc(%zu) = %p\n", size, ptr);
   return ptr;
 }
@@ -195,11 +202,13 @@ void free(void *ptr) {
     return;
   }
   void *hdr = PTR_SUB(ptr, WSIZE);
+  HEAP_LOCK
   size_t size = GET_SIZE(hdr);
   void *ftr = PTR_ADD(hdr, size - WSIZE);
   PUT(hdr, size);
   PUT(ftr, size);
   coalesce(ptr);
+  HEAP_UNLOCK
 }
 
 void *calloc(size_t nmemb, size_t size) {
