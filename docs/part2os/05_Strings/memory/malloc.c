@@ -6,8 +6,6 @@
 
 #include "trace.h"
 
-//------------------------ Heap Management Functions -------------------------//
-
 // Size of chunk to be requested from OS. 4096 is memory page size.
 #define CHUNKSIZE (1 << 12)
 
@@ -15,19 +13,15 @@
 #define PTR_ADD(p, offset) (((char *) p) + offset)
 #define PTR_SUB(p, offset) (((char *) p) - offset)
 
-// Start of reserved memory region.
-static void *heap_start;
-// End of reserved memory region.
-static void *heap_end;
-
-static void *request_memory(size_t size) {
+// Requests memory for the heap.
+static void *heap_sbrk(size_t size) {
+#ifndef NDEBUG
   void *start = sbrk(0);
+#endif
   void *ptr = sbrk(size);
   assert(start == ptr);
   return ptr;
 }
-
-//-------------------------- Block Management --------------------------------//
 
 // Type for storing header/footer
 typedef unsigned int word_t;
@@ -39,27 +33,79 @@ typedef unsigned int word_t;
 
 // Read and write a word at address p
 #define GET(p) (*(word_t *)(p))
-#define PUT(p, val) (*(word_t *)(p) = (val))
+#define PUT(p, val) (*(word_t *)(p) = (word_t)(val))
 
 // Read the size and allocated fields from address p
 #define GET_SIZE(p) (GET(p) & ~0x7) // Excluding 3 lowest bits, always power of 8
 #define GET_ALLOC(p) (GET(p) & 0x1) // Lowest bit
 
-// Given block ptr bp, compute address of its header and footer
-#define HDRP(bp) ((char *)(bp) - WSIZE)
-#define FTRP(bp) ((char *)(bp) + GET_SIZE(HDRP(bp)) - DSIZE)
-
 // Size aligned by the border of given units (e.g. 8-byte double words).
 #define ALIGNED_SIZE(size, unit) (unit * ((size + (unit - 1)) / unit))
 
-// Head of block list.
-static void *list_head = NULL;
+// Heap information data structure.
+typedef struct {
+  // Start of reserved memory region.
+  void *start;
+  // End of reserved memory region.
+  void *end;
+  // Head of implicit block list.
+  void *head;
+} heap_t;
 
-static void place(void *bp, size_t asize) {
-  void *hdr = HDRP(bp);
-  void *ftr = FTRP(bp);
+// Stores heap information.
+static heap_t g_heap = {0};
+
+// Prints information on all heap blocks.
+#ifndef NDEBUG
+static void heap_dump() {
+  void *hdr = PTR_SUB(g_heap.head, WSIZE);
+  word_t hdata = GET(hdr);
+  size_t hsize;
+  while ((hsize = (hdata & ~0x7))) {
+    void *ptr = PTR_ADD(hdr, WSIZE);
+    void *ftr = PTR_ADD(hdr, hsize - WSIZE);
+    word_t fdata = GET(ftr);
+    size_t fsize = fdata & ~0x7;
+    trace("%p = [%zu/%d : %zu/%d]\n", ptr, hsize, hdata & 1, fsize, fdata & 1);
+    hdr = PTR_ADD(hdr, hsize);
+    hdata = GET(hdr);
+  }
+}
+#endif
+
+// Initializes the heap: allocates an initial empty block.
+static void heap_init() {
+  heap_t heap;
+  heap.start = heap_sbrk(CHUNKSIZE);
+  heap.end = PTR_ADD(heap.start, CHUNKSIZE);
+  heap.head = PTR_ADD(heap.start, DSIZE);
+  size_t bsize = CHUNKSIZE - DSIZE;
+  PUT(heap.start, 1); // Prologue footer (0-size allocated block)
+  PUT(PTR_ADD(heap.start, WSIZE), bsize); // Header
+  PUT(PTR_SUB(heap.end, DSIZE), bsize); // Footer
+  PUT(PTR_SUB(heap.end, WSIZE), 1); // Epilogue header (0-size allocated block)
+  g_heap = heap;
+  trace("malloc module is initialized\nstart=%p\nend=  %p\nhead= %p\n",
+      heap.start, heap.end, heap.head);
+}
+
+// Extends the heap by adding a new block (chunk-size aligned).
+static void *heap_extend(size_t size) {
+  size_t asize = ALIGNED_SIZE(size, CHUNKSIZE);
+  void *start = heap_sbrk(asize);
+  void *end = PTR_ADD(start, asize);
+  PUT(PTR_SUB(start, WSIZE), asize); // Header
+  PUT(PTR_SUB(end, DSIZE), asize); // Footer
+  PUT(PTR_SUB(end, WSIZE), 1); // Epilogue header (0-size allocated block)
+  g_heap.end = end;
+  return start;
+}
+
+// Marks the block as allocated (splits if too large).
+static void place(void *ptr, size_t asize) {
+  void *hdr = PTR_SUB(ptr, WSIZE);
   size_t bsize = GET_SIZE(hdr); // Block size.
-  assert(asize <= bsize);
+  void *ftr = PTR_ADD(hdr, bsize - WSIZE);
   size_t rsize = bsize - asize; // Remaining size.
   if (rsize >= DSIZE) { // Split the block.
     void *rhdr = PTR_ADD(hdr, asize);
@@ -74,86 +120,57 @@ static void place(void *bp, size_t asize) {
   }
 }
 
-static void *coalesce(void *curr) {
-  size_t size = GET_SIZE(HDRP(curr));
-  word_t prev_alloc = GET_ALLOC(PTR_SUB(curr, DSIZE));
-  word_t next_alloc = GET_ALLOC(PTR_ADD(curr, size - WSIZE));
+// Merges the current block with the previous and next blocks if they are empty.
+static void *coalesce(void *ptr) {
+  void *hdr = PTR_SUB(ptr, WSIZE);
+  size_t size = GET_SIZE(hdr);
+  void *prev_ftr = PTR_SUB(hdr, WSIZE);
+  void *next_hdr = PTR_ADD(hdr, size);
+  word_t prev_alloc = GET_ALLOC(prev_ftr);
+  word_t next_alloc = GET_ALLOC(next_hdr);
   if (prev_alloc && next_alloc) { // Case 1
-    return curr;
+    return ptr;
   }
-  void *prev = PTR_SUB(curr, GET_SIZE(PTR_SUB(curr, DSIZE)));
-  void *next = PTR_ADD(curr, size);
+  void *ftr = PTR_SUB(next_hdr, WSIZE);
+  size_t prev_size = GET_SIZE(prev_ftr);
+  size_t next_size = GET_SIZE(next_hdr);
+  void *prev_hdr = PTR_SUB(hdr, prev_size);
+  void *next_ftr = PTR_ADD(ftr, next_size);
   if (prev_alloc && !next_alloc) { // Case 2
-    size += GET_SIZE(HDRP(next));
-    PUT(HDRP(curr), size);
-    PUT(FTRP(curr), size);
+    size += next_size;
+    PUT(hdr, size);
+    PUT(next_ftr, size);
   } else if (!prev_alloc && next_alloc) { // Case 3
-    size += GET_SIZE(HDRP(prev));
-    PUT(FTRP(curr), size);
-    PUT(HDRP(prev), size);
-    curr = prev;
+    size += prev_size;
+    PUT(prev_hdr, size);
+    PUT(ftr, size);
+    ptr = PTR_ADD(prev_hdr, WSIZE);
   } else { // Case 4
-    size += GET_SIZE(HDRP(prev)) + GET_SIZE(FTRP(next));
-    PUT(HDRP(prev), size);
-    PUT(FTRP(next), size);
-    curr = prev;
+    size += prev_size + next_size;
+    PUT(prev_hdr, size);
+    PUT(next_ftr, size);
+    ptr = PTR_ADD(prev_hdr, WSIZE);
   }
-  return curr;
+  return ptr;
 }
 
+// Finds a suitable empty block (first-fit).
 static void *find_fit(size_t size) {
-  void *ptr = list_head;
-  void *hdr = HDRP(ptr);
+  trace("find_fit(%zu)\n", size);
+  if (g_heap.head == NULL) {
+    heap_init();
+  }
+  void *hdr = PTR_SUB(g_heap.head, WSIZE);
+  word_t bdata = GET(hdr);
   size_t bsize;
-  while ((bsize = GET_SIZE(hdr))) {
-    if (!GET_ALLOC(hdr) && bsize >= size) {
-      return ptr;
+  while ((bsize = bdata & ~0x7)) {
+    if (!(bdata & 1) && bsize >= size) {
+      return PTR_ADD(hdr, WSIZE);
     }
-    ptr = PTR_ADD(ptr, bsize);
-    hdr = HDRP(ptr);
+    hdr = PTR_ADD(hdr, bsize);
+    bdata = GET(hdr);
   }
   return NULL;
-}
-
-static void *extend_heap(size_t size) {
-  size_t asize = ALIGNED_SIZE(size, CHUNKSIZE);
-  void *ptr = request_memory(asize);
-  PUT(PTR_SUB(ptr, WSIZE), asize - WSIZE); // Header
-  PUT(PTR_ADD(ptr, asize - DSIZE), asize - WSIZE); // Footer
-  PUT(PTR_ADD(ptr, asize - WSIZE), 1); // Epilogue header (0-size allocated block)
-  return coalesce(ptr);
-}
-
-static void dump_blocks() {
-  void *ptr = list_head;
-  void *hdr = HDRP(ptr);
-  size_t bsize;
-  while ((bsize = GET_SIZE(hdr))) {
-    trace("%p = %zu/%d\n", ptr, bsize, GET_ALLOC(hdr));
-    ptr = PTR_ADD(ptr, bsize);
-    hdr = HDRP(ptr);
-  }
-}
-
-//---------------------------- Malloc Functions ------------------------------//
-
-void __attribute__ ((constructor)) malloc_module_init(void) {
-  trace("malloc module is initialized\n");
-  void *ptr = request_memory(CHUNKSIZE);
-  heap_start = ptr;
-  heap_end = PTR_ADD(ptr, CHUNKSIZE);
-  PUT(ptr, 1); // Prologue footer (0-size allocated block)
-  PUT(PTR_ADD(ptr, WSIZE), CHUNKSIZE - DSIZE); // Header
-  PUT(PTR_ADD(ptr, CHUNKSIZE - DSIZE), CHUNKSIZE - DSIZE); // Footer
-  PUT(PTR_ADD(ptr, CHUNKSIZE - WSIZE), 1); // Epilogue header (0-size allocated block)
-  list_head = PTR_ADD(ptr, DSIZE);
-  trace("start=%p\nend=  %p\nhead= %p\n", heap_start, heap_end, list_head);
-  dump_blocks();
-}
-
-void __attribute__ ((destructor)) malloc_module_clean(void) {
-  // dump_blocks();
-  trace("malloc module is finalized\n");
 }
 
 void *malloc(size_t size) {
@@ -164,11 +181,11 @@ void *malloc(size_t size) {
   size_t asize = ALIGNED_SIZE(size, DSIZE) + DSIZE;
   void *ptr = find_fit(asize);
   if (!ptr) {
-    ptr = extend_heap(asize);
+    ptr = heap_extend(asize);
+    ptr = coalesce(ptr);
   }
   place(ptr, asize);
   trace("malloc(%zu) = %p\n", size, ptr);
-  // dump_blocks();
   return ptr;
 }
 
@@ -177,14 +194,16 @@ void free(void *ptr) {
   if (!ptr) {
     return;
   }
-  word_t size = GET_SIZE(HDRP(ptr)); // Reset alloc
-  PUT(HDRP(ptr), size);
-  PUT(FTRP(ptr), size);
+  void *hdr = PTR_SUB(ptr, WSIZE);
+  size_t size = GET_SIZE(hdr);
+  void *ftr = PTR_ADD(hdr, size - WSIZE);
+  PUT(hdr, size);
+  PUT(ftr, size);
   coalesce(ptr);
-  // dump_blocks();
 }
 
 void *calloc(size_t nmemb, size_t size) {
+  trace("calloc(%zu, %zu)\n", nmemb, size);
   size_t newsize = nmemb * size;
   if (newsize / size != nmemb) {
     return NULL; // Overflow!
@@ -193,24 +212,22 @@ void *calloc(size_t nmemb, size_t size) {
   if (ptr) {
     memset(ptr, 0, newsize);
   }
-  trace("calloc(%zu, %zu) = %p\n", nmemb, size, ptr);
   return ptr;
 }
 
 void *realloc(void *ptr, size_t size) {
+  trace("realloc(%p, %zu)\n", ptr, size);
   if (!ptr) {
     return malloc(size);
   }
   void *newptr = ptr;
-  size_t oldsize = GET_SIZE(HDRP(ptr)) - DSIZE;
+  size_t oldsize = GET_SIZE(PTR_SUB(ptr, WSIZE)) - DSIZE;
   if (oldsize < size) {
-    newptr = malloc(size);
-    if (newptr) {
+    if ((newptr = malloc(size))) {
       memcpy(newptr, ptr, oldsize);
       free(ptr);
     }
   }
-  trace("realloc(%p, %zu) = %p\n", ptr, size, newptr);
   return newptr;
 }
 
