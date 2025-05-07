@@ -64,7 +64,7 @@ free(0x56f5dd366418)
 
 #### Tasks
 
-For a practice with memory allocation algorithms, improve the `realloc` implementation in the example:
+For a practice with memory-allocation algorithms, improve the `realloc` implementation in the example:
 
 1. If the new size is smaller than the original size of the block, split the block
    (the remaining part becomes in empty block).

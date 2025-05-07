@@ -243,6 +243,11 @@ gcc prog.c -E -DNO_MACRO # NO_MACRO is defined
 
 ## Homework
 
+_Write and submit to GitHub the program described below._
+_An instruction on how to work with GitHub is [here](../../../software/git.md)_.
+
+### Tasks
+
 1. Write a program in C that inputs two integer values `x` and `y`,
    call function `swap` that takes the values as arguments and swaps them,
    prints the values after the swap.

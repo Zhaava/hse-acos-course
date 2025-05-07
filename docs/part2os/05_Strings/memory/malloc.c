@@ -225,8 +225,8 @@ void *realloc(void *ptr, size_t size) {
   if (!ptr) {
     return malloc(size);
   }
-  void *newptr = ptr;
   size_t bsize = GET_SIZE(PTR_SUB(ptr, WSIZE)) - DSIZE;
+  void *newptr = ptr;
   if (bsize < size) {
     if ((newptr = malloc(size))) {
       memcpy(newptr, ptr, bsize);
