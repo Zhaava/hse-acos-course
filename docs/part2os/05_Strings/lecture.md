@@ -85,8 +85,7 @@ See the __Homework__ in the workshop materials.
 * Memory Allocation. Chapter 7 in [[TLPI]](../../books.md)
 * Donald Knuth. [The Art of Computer Programming](
   https://en.wikipedia.org/wiki/The_Art_of_Computer_Programming).
-  Volume 1 – Fundamental algorithms.
-  2.5. Dynamic storage allocation.
+  Volume 1. Fundamental algorithms. Section 2.5. Dynamic storage allocation.
 * [C dynamic memory allocation](https://en.wikipedia.org/wiki/C_dynamic_memory_allocation) (Wikipedia)
 * [Malloc tutorial](https://danluu.com/malloc-tutorial/)
 * [Memory Allocators](https://github.com/mtrebi/memory-allocators)
