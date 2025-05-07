@@ -207,13 +207,13 @@ void free(void *ptr) {
 
 void *calloc(size_t nmemb, size_t size) {
   trace("calloc(%zu, %zu)\n", nmemb, size);
-  size_t newsize = nmemb * size;
-  if (newsize / size != nmemb) {
+  size_t asize = nmemb * size;
+  if (asize / size != nmemb) {
     return NULL; // Overflow!
   }
-  void *ptr = malloc(newsize);
+  void *ptr = malloc(asize);
   if (ptr) {
-    memset(ptr, 0, newsize);
+    memset(ptr, 0, asize);
   }
   return ptr;
 }
@@ -224,10 +224,10 @@ void *realloc(void *ptr, size_t size) {
     return malloc(size);
   }
   void *newptr = ptr;
-  size_t oldsize = GET_SIZE(PTR_SUB(ptr, WSIZE)) - DSIZE;
-  if (oldsize < size) {
+  size_t bsize = GET_SIZE(PTR_SUB(ptr, WSIZE)) - DSIZE;
+  if (bsize < size) {
     if ((newptr = malloc(size))) {
-      memcpy(newptr, ptr, oldsize);
+      memcpy(newptr, ptr, bsize);
       free(ptr);
     }
   }
@@ -235,9 +235,9 @@ void *realloc(void *ptr, size_t size) {
 }
 
 void *reallocarray(void *ptr, size_t nmemb, size_t size) {
-  size_t newsize = nmemb * size;
-  if (newsize / size != nmemb) {
+  size_t asize = nmemb * size;
+  if (asize / size != nmemb) {
     return NULL; // Overflow!
   }
-  return realloc(ptr, size);
+  return realloc(ptr, asize);
 }
