@@ -2,6 +2,7 @@
 
 #include <assert.h>
 #include <string.h>
+#include <stdio.h>
 #include <unistd.h>
 
 #include "trace.h"
@@ -47,27 +48,31 @@ typedef struct {
 // Stores heap information.
 static heap_t g_heap = {0};
 
-#define HEAP_LOCK while(__atomic_test_and_set(&g_heap.lock, __ATOMIC_RELAXED)) {}
+#define HEAP_LOCK while(__atomic_test_and_set(&g_heap.lock, __ATOMIC_ACQUIRE)) {}
 
-#define HEAP_UNLOCK __atomic_clear(&g_heap.lock, __ATOMIC_RELAXED);
+#define HEAP_UNLOCK __atomic_clear(&g_heap.lock, __ATOMIC_RELEASE);
 
 // Prints information on all heap blocks.
-#ifndef NDEBUG
-static void heap_dump() {
+void heap_dump() {
   void *hdr = PTR_SUB(g_heap.head, WSIZE);
   word_t hdata = GET(hdr);
   size_t hsize;
+  char buff[64] = {0};
   while ((hsize = (hdata & ~0x7))) {
     void *ptr = PTR_ADD(hdr, WSIZE);
     void *ftr = PTR_ADD(hdr, hsize - WSIZE);
     word_t fdata = GET(ftr);
     size_t fsize = fdata & ~0x7;
-    trace("%p = [%zu/%d : %zu/%d]\n", ptr, hsize, hdata & 1, fsize, fdata & 1);
+    int len = snprintf(
+        buff,
+        sizeof(buff),
+        "%p = [%zu/%d : %zu/%d]\n", ptr, hsize, hdata & 1, fsize, fdata & 1
+    );
+    write(STDOUT_FILENO, buff, len);
     hdr = PTR_ADD(hdr, hsize);
     hdata = GET(hdr);
   }
 }
-#endif
 
 // Initializes the heap: allocates an initial empty block.
 static void heap_init() {
@@ -81,7 +86,7 @@ static void heap_init() {
   PUT(PTR_SUB(heap.end, DSIZE), bsize); // Footer
   PUT(PTR_SUB(heap.end, WSIZE), 1); // Epilogue header (0-size allocated block)
   g_heap = heap;
-  trace("malloc module is initialized\nstart=%p\nend=  %p\nhead= %p\n",
+  trace("malloc is initialized\nstart=%p\nend=  %p\nhead= %p\n",
       heap.start, heap.end, heap.head);
 }
 
@@ -100,17 +105,17 @@ static void *heap_extend(size_t size) {
 // Marks the block as allocated (splits if too large).
 static void place(void *ptr, size_t asize) {
   void *hdr = PTR_SUB(ptr, WSIZE);
-  size_t bsize = GET_SIZE(hdr); // Block size.
+  size_t bsize = GET_SIZE(hdr); // Block size
   void *ftr = PTR_ADD(hdr, bsize - WSIZE);
-  size_t rsize = bsize - asize; // Remaining size.
-  if (rsize >= DSIZE) { // Split the block.
+  size_t rsize = bsize - asize; // Remaining size
+  if (rsize >= DSIZE) { // Split the block
     void *rhdr = PTR_ADD(hdr, asize);
     void *aftr = PTR_SUB(rhdr, WSIZE);
-    PUT(hdr, asize | 1); // Allocated header.
-    PUT(aftr, asize | 1); // Allocated footer.
-    PUT(rhdr, rsize); // Remaining header.
-    PUT(ftr, rsize); // Remaining footer.
-  } else { // Do not change the block size.
+    PUT(hdr, asize | 1);
+    PUT(aftr, asize | 1);
+    PUT(rhdr, rsize);
+    PUT(ftr, rsize);
+  } else { // Do not change the block size
     PUT(hdr, bsize | 1);
     PUT(ftr, bsize | 1);
   }
