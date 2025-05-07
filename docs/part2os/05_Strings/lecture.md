@@ -62,6 +62,15 @@ free(0x56f5dd366470)
 free(0x56f5dd366418)
 ```
 
+#### Tasks
+
+For a practice with memory allocation algorithms, improve the `realloc` implementation in the example:
+
+1. If the new size is smaller than the original size of the block, split the block
+   (the remaining part becomes in empty block).
+2. If the next block is empty and is sufficiently large, extend the current block instead
+   of freeing it, allocating a new one, and copying data. 
+
 ## Workshop
 
 Workshop on strings in C language is [here](strings/workshop.md).
