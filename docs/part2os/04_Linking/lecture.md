@@ -7,7 +7,7 @@ Lecture 4
 
 Slides ([PDF](OS_Lecture_04.pdf), [PPTX](OS_Lecture_04.pptx)).
 
-#### Outline
+### Outline
 
 * Linking ([example](https://github.com/andrewt0301/hse-acos-course/tree/master/docs/part2os/04_Linking/linking))
 * Relocatable object files
@@ -18,7 +18,30 @@ Slides ([PDF](OS_Lecture_04.pdf), [PPTX](OS_Lecture_04.pptx)).
 * Position-independent code
 * [Address space layout randomization](https://github.com/andrewt0301/hse-acos-course/tree/master/docs/part2os/04_Linking/aslr)
 
-##### Example
+### Examples
+
+#### Tools for Manipulating Object Files
+
+* [ar](https://man7.org/linux/man-pages/man1/ar.1.html) -
+  creates static libraries, and inserts, deletes, lists, and extracts members.
+* [strings](https://man7.org/linux/man-pages/man1/strings.1.html) -
+  lists all of the printable strings contained in an object file.
+* [strip](https://man7.org/linux/man-pages/man1/strip.1.html) -
+  deletes symbol table information from an object file.
+* [nm](https://man7.org/linux/man-pages/man1/nm.1.html) -
+  lists the symbols defined in the symbol table of an object file.
+* [size](https://man7.org/linux/man-pages/man1/size.1.html) -
+  lists the names and sizes of the sections in an object file.
+* [readelf](https://man7.org/linux/man-pages/man1/readelf.1.html) -
+  displays the complete structure of an object file, including all of the information
+  encoded in the ELF header. Subsumes the functionality of `size` and `nm`.
+* [objdump](https://man7.org/linux/man-pages/man1/objdump.1.html) -
+  the mother of all binary tools. Can display all of the information in an object file.
+  Its most useful function is disassembling the binary instructions in the `.text` section.
+* [ldd](https://man7.org/linux/man-pages/man1/ldd.1.html) -
+  lists the shared libraries that an executable needs at run time.
+
+#### Executable and Linkable Format (ELF)
 
 `main.o` (relocatable object file):
 ```
@@ -120,30 +143,7 @@ Disassembly of section .text:
    10488:	00008067          	ret
 ```
 
-#### Tools for Manipulating Object Files
-
-* [ar](https://man7.org/linux/man-pages/man1/ar.1.html) -
-  creates static libraries, and inserts, deletes, lists, and extracts members.
-* [strings](https://man7.org/linux/man-pages/man1/strings.1.html) -
-  lists all of the printable strings contained in an object file.
-* [strip](https://man7.org/linux/man-pages/man1/strip.1.html) -
-  deletes symbol table information from an object file.
-* [nm](https://man7.org/linux/man-pages/man1/nm.1.html) -
-  lists the symbols defined in the symbol table of an object file.
-* [size](https://man7.org/linux/man-pages/man1/size.1.html) -
-  lists the names and sizes of the sections in an object file.
-* [readelf](https://man7.org/linux/man-pages/man1/readelf.1.html) -
-  displays the complete structure of an object file, including all of the information
-  encoded in the ELF header. Subsumes the functionality of `size` and `nm`.
-* [objdump](https://man7.org/linux/man-pages/man1/objdump.1.html) -
-  the mother of all binary tools. Can display all of the information in an object file.
-  Its most useful function is disassembling the binary instructions in the `.text` section.
-* [ldd](https://man7.org/linux/man-pages/man1/ldd.1.html) -
-  lists the shared libraries that an executable needs at run time.
-
 #### Library Interpositioning
-
-Examples:
 
 * [Compile-time](https://github.com/andrewt0301/hse-acos-course/tree/master/docs/part2os/04_Linking/interpos_comp) 
 * [Link-time](https://github.com/andrewt0301/hse-acos-course/tree/master/docs/part2os/04_Linking/interpos_link)
@@ -151,31 +151,37 @@ Examples:
 
 ## Workshop
 
-#### Outline
+### Outline
 
 * Creating static libraries
 * Creating shared libraries
 * Library interpositioning
 * Make scripts
 
-#### Practice
+### Practice
 
-* [Part 1](libs.md) (Static and shared libraries).
-* [Part 2](make.md) (Make files).
-* [Part 3](cmake/CMakeLists.txt) (CMake).
+* [Part 1](libs.md) (Static and shared libraries)
+* [Part 2](make.md) (Make files)
+* [Part 3](cmake/CMakeLists.txt) (CMake)
 
 ## Homework
 
-1. Improve Task 1 from Part 1:
+_Write and submit to GitHub the program described below._
+_An instruction on how to work with GitHub is [here](../../software/git.md)_.
+
+### Task
+
+1. Improve Task 1 from [Part 1](libs.md):
    * Provide _link-time_ interpositioning for the `fred` and `john` functions
    * Provide _load-time_ interpositioning for the `bill` and `sam` functions
    * Create a Make script to build the program
 
 Note: interposed functions can just print a message like "fred is called".
 
-# References
+## References
 
-* Linking. Chapter 7 in [[CSPP]](../../books.md).
-* Section 2.5. in [[OSC]](../../books.md).
-* Chapters 41 and 42 in [[TLPI]](../../books.md).
-* [Address space layout randomization](https://en.wikipedia.org/wiki/Address_space_layout_randomization) (Wikipedia).
+* Linking. Chapter 7 in [[CSPP]](../../books.md)
+* Section 2.5. in [[OSC]](../../books.md)
+* Chapters 41 and 42 in [[TLPI]](../../books.md)
+* [Address space layout randomization](
+  https://en.wikipedia.org/wiki/Address_space_layout_randomization) (Wikipedia)
