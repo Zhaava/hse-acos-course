@@ -27,7 +27,7 @@ typedef unsigned int word_t;
 #define PUT(p, val) (*(word_t *)(p) = (word_t)(val))
 
 // Read the size and allocated fields from address p
-#define GET_SIZE(p) (GET(p) & ~0x7) // Excluding 3 lowest bits, always power of 8
+#define GET_SIZE(p) (GET(p) & ~0x7) // Excluding 3 lowest bits (multiple of 8)
 #define GET_ALLOC(p) (GET(p) & 0x1) // Lowest bit
 
 // Size aligned by the border of given units (e.g. 8-byte double words).
