@@ -17,6 +17,52 @@ Slides ([PDF](OS_Lecture_05.pdf), [PPTX](OS_Lecture_05.pptx)).
 * Placement policies
 * Splitting and coalescing
 
+#### Example
+
+Simple `malloc` implementation based on implicit list with the first-fit policy
+can be found [here](./memory).
+
+Try using it to allocate memory for various programs. For example:
+```cpp
+#include <iostream>
+#include <string>
+#include <vector>
+
+int main() {
+  std::string s = "Hello World!";
+  std::cout << s << std::endl;
+  std::vector<int> v(20, 0);
+  int *pp = new int[10];
+  delete pp;
+  std::string text = "This is some random very long text!";
+  return 0;
+}
+```
+```bash
+make runcpp
+gcc -Wall -g -shared -fpic -o libmalloc.so malloc.c
+g++ test.cpp -o testcpp
+LD_PRELOAD="./libmalloc.so" ./testcpp
+malloc(73728)
+malloc is initialized
+start=0x56f5dd354000
+end=  0x56f5dd355000
+head= 0x56f5dd354008
+malloc(73728) = 0x56f5dd354008
+malloc(1024)
+malloc(1024) = 0x56f5dd366010
+Hello World!
+malloc(80)
+malloc(80) = 0x56f5dd366418
+malloc(40)
+malloc(40) = 0x56f5dd366470
+free(0x56f5dd366470)
+malloc(36)
+malloc(36) = 0x56f5dd366470
+free(0x56f5dd366470)
+free(0x56f5dd366418)
+```
+
 ## Workshop
 
 [Workshop on strings in C language](strings/workshop.md).
