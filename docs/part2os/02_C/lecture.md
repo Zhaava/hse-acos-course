@@ -253,8 +253,8 @@ _An instruction on how to work with GitHub is [here](../../software/git.md)_.
    prints the values after the swap.
 
 1. Write a program in C, which does the following:
-   * inputs an integer value 'N';
-   * allocates an array of 'N' integer elements;
+   * inputs an integer value `N`;
+   * allocates an array of `N` integer elements;
    * fills the array with integer values from the standard input;
    * reverses the array;
    * prints the resulting array;
