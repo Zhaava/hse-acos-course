@@ -3,9 +3,9 @@ all:	malloc test testcpp
 malloc:
 	gcc -Wall -g -shared -fpic -o libmalloc.so malloc.c
 test:
-	gcc test.c -o test
+	gcc -g test.c -o test
 testcpp:
-	g++ test.cpp -o testcpp
+	g++ -g test.cpp -o testcpp
 run:	malloc test
 	LD_PRELOAD="./libmalloc.so" ./test
 runcpp:	malloc testcpp
