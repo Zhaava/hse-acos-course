@@ -1,7 +1,7 @@
 Lecture 4
 ---
 
-# Libraries and binary file format
+# Executable file format / Linking and loading
 
 ## Lecture
 
