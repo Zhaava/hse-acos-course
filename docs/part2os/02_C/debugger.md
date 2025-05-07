@@ -14,7 +14,7 @@ Compiling for debug: `cc -O0 -g program.c -o binaryprog`
  * `-g` — include C source references in binary file (you still need the source file itself)
  * `-o binaryprog` — set result binary file name
 
-### Debugging with GDB`
+### Debugging with GDB
 
 1. Example program:
 
@@ -64,7 +64,7 @@ Compiling for debug: `cc -O0 -g program.c -o binaryprog`
    10              for(i=0; i<len; i++)
    ```
 
-1. Run next c code (executing function call as "one" instruction) with `n`:
+1. Run next C code line (executing function call as "one" instruction) with `n`:
 
    ```
    (gdb) n
@@ -79,7 +79,7 @@ Compiling for debug: `cc -O0 -g program.c -o binaryprog`
    11                      b[i] = a[i];
    ```
 
-   Also you can just press enter for repeating last command.
+   Also, you can just press Enter for repeating the last command.
 
 1. Print a variable with `p`:
 

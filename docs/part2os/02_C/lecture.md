@@ -223,11 +223,8 @@ gcc prog.c -E -DNO_MACRO # NO_MACRO is defined
 
 * Discuss main features of C and differences with other languages
 * Discuss questions from [this](disc02.pdf) document
-* Write and debug small programs covering different features of C language.
-
-#### Debugging C programs
-
-* [Learn how to use GDB to debug simple programs](debugger.md).
+* [Learn how to use GDB to debug simple programs](debugger.md)
+* Write and debug small programs covering different features of C language
 
 #### Tasks
 
