@@ -243,8 +243,8 @@ gcc prog.c -E -DNO_MACRO # NO_MACRO is defined
 
 ## Homework
 
-_Write and submit to GitHub the program described below._
-_An instruction on how to work with GitHub is [here](../../../software/git.md)_.
+_Write and submit to GitHub the programs described below._
+_An instruction on how to work with GitHub is [here](../../software/git.md)_.
 
 ### Tasks
 
