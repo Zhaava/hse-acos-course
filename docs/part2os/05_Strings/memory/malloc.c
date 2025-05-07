@@ -7,9 +7,6 @@
 
 #include "trace.h"
 
-// Size of chunk to be requested from OS. 4096 is memory page size.
-#define CHUNKSIZE (1 << 12)
-
 // Moves a pointer forward/backward by the specified number of bytes.
 #define PTR_ADD(p, offset) (((char *) p) + offset)
 #define PTR_SUB(p, offset) (((char *) p) - offset)
@@ -37,6 +34,8 @@ typedef unsigned int word_t;
 typedef struct {
   // Variable for spinlock.
   int lock;
+  // Memory page size.
+  size_t pagesize;
   // Start of reserved memory region.
   void *start;
   // End of reserved memory region.
@@ -48,8 +47,8 @@ typedef struct {
 // Stores heap information.
 static heap_t g_heap = {0};
 
+// Spinlock for syncronizing access to the heap.
 #define HEAP_LOCK while(__atomic_test_and_set(&g_heap.lock, __ATOMIC_ACQUIRE)) {}
-
 #define HEAP_UNLOCK __atomic_clear(&g_heap.lock, __ATOMIC_RELEASE);
 
 // Prints information on all heap blocks.
@@ -77,10 +76,11 @@ void heap_dump() {
 // Initializes the heap: allocates an initial empty block.
 static void heap_init() {
   heap_t heap;
-  heap.start = sbrk(CHUNKSIZE);
-  heap.end = PTR_ADD(heap.start, CHUNKSIZE);
+  heap.pagesize = sysconf(_SC_PAGESIZE);
+  heap.start = sbrk(heap.pagesize);
+  heap.end = PTR_ADD(heap.start, heap.pagesize);
   heap.head = PTR_ADD(heap.start, DSIZE);
-  size_t bsize = CHUNKSIZE - DSIZE;
+  size_t bsize = heap.pagesize - DSIZE;
   PUT(heap.start, 1); // Prologue footer (0-size allocated block)
   PUT(PTR_ADD(heap.start, WSIZE), bsize); // Header
   PUT(PTR_SUB(heap.end, DSIZE), bsize); // Footer
@@ -92,7 +92,7 @@ static void heap_init() {
 
 // Extends the heap by adding a new block (chunk-size aligned).
 static void *heap_extend(size_t size) {
-  size_t asize = ALIGNED_SIZE(size, CHUNKSIZE);
+  size_t asize = ALIGNED_SIZE(size, g_heap.pagesize);
   void *start = sbrk(asize);
   void *end = PTR_ADD(start, asize);
   PUT(PTR_SUB(start, WSIZE), asize); // Header
