@@ -1,5 +1,6 @@
 #include "malloc.h"
 
+#include <errno.h>
 #include <string.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -209,6 +210,7 @@ void *calloc(size_t nmemb, size_t size) {
   trace("calloc(%zu, %zu)\n", nmemb, size);
   size_t asize = nmemb * size;
   if (asize / size != nmemb) {
+    errno = ENOMEM;
     return NULL; // Overflow!
   }
   void *ptr = malloc(asize);
@@ -237,6 +239,7 @@ void *realloc(void *ptr, size_t size) {
 void *reallocarray(void *ptr, size_t nmemb, size_t size) {
   size_t asize = nmemb * size;
   if (asize / size != nmemb) {
+    errno = ENOMEM;
     return NULL; // Overflow!
   }
   return realloc(ptr, asize);
