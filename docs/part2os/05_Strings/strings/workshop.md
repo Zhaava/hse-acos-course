@@ -3,13 +3,13 @@ Workshop
 
 # Strings, Patterns, and Regular Expressions
 
-#### Theory
+## Theory
 
 * [Strings in C](c_strings.md)
 * [Patterns](patterns.md)
 * [Regular expressions](regexes.md)
 
-#### Outline
+## Outline
 
 * Practice using functions of the C language to handle strings
 * Practice using Shell patterns and regular expressions
@@ -17,6 +17,11 @@ Workshop
     * C language
 
 ## Homework
+
+_Write and submit to GitHub the program described below.
+An instruction on how to work with GitHub is [here](../../../software/git.md)_.
+
+### Task
 
 Write a program that inputs three command-line arguments:
 
@@ -36,7 +41,7 @@ _Note_: The problem when the size of the allocated buffer is not enough to store
 can be solved by using the [realloc](https://man7.org/linux/man-pages/man3/realloc.3p.html)
 function to allocated additional space.
 
-# References
+## References
 
 * Jeffrey Friedl [Mastering Regular Expressions](http://regex.info/book.html) (aka The Owl Book).
 * [regex101: build, test, and debug regex](https://regex101.com)
