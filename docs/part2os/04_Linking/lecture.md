@@ -1,7 +1,7 @@
 Lecture 4
 ---
 
-# Executable file format / Linking and loading
+# Linking and loading
 
 ## Lecture
 
