@@ -13,16 +13,6 @@
 #define PTR_ADD(p, offset) (((char *) p) + offset)
 #define PTR_SUB(p, offset) (((char *) p) - offset)
 
-// Requests memory for the heap.
-static void *heap_sbrk(size_t size) {
-#ifndef NDEBUG
-  void *start = sbrk(0);
-#endif
-  void *ptr = sbrk(size);
-  assert(start == ptr);
-  return ptr;
-}
-
 // Type for storing header/footer
 typedef unsigned int word_t;
 
@@ -82,7 +72,7 @@ static void heap_dump() {
 // Initializes the heap: allocates an initial empty block.
 static void heap_init() {
   heap_t heap;
-  heap.start = heap_sbrk(CHUNKSIZE);
+  heap.start = sbrk(CHUNKSIZE);
   heap.end = PTR_ADD(heap.start, CHUNKSIZE);
   heap.head = PTR_ADD(heap.start, DSIZE);
   size_t bsize = CHUNKSIZE - DSIZE;
@@ -98,7 +88,7 @@ static void heap_init() {
 // Extends the heap by adding a new block (chunk-size aligned).
 static void *heap_extend(size_t size) {
   size_t asize = ALIGNED_SIZE(size, CHUNKSIZE);
-  void *start = heap_sbrk(asize);
+  void *start = sbrk(asize);
   void *end = PTR_ADD(start, asize);
   PUT(PTR_SUB(start, WSIZE), asize); // Header
   PUT(PTR_SUB(end, DSIZE), asize); // Footer
