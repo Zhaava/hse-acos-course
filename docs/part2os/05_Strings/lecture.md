@@ -64,7 +64,7 @@ free(0x56f5dd366418)
 
 ## Workshop
 
-[Workshop on strings in C language](strings/workshop.md).
+Workshop on strings in C language is [here](strings/workshop.md).
 
 See the __Homework__ in the workshop materials.
 
