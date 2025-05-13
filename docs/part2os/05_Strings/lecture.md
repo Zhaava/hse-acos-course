@@ -64,12 +64,18 @@ free(0x56f5dd366418)
 
 #### Tasks
 
-For a practice with memory-allocation algorithms, improve the `realloc` implementation in the example:
+To practice with memory-allocation algorithms, do the following exercises:
 
-1. If the new size is smaller than the original size of the block, split the block
-   (the remaining part becomes in empty block).
-2. If the next block is empty and is sufficiently large, extend the current block instead
-   of freeing it, allocating a new one, and copying data. 
+1. Improve the `realloc` implementation in the example:
+   * If the new size is smaller than the original size of the block, split the block
+     (the remaining part becomes in empty block).
+   * If the next block is empty and is sufficiently large, extend the current block instead
+     of freeing it, allocating a new one, and copying data. 
+2. Improve memory utilization: footers are required only for free blocks (used for coalescing adjacent blocks).
+   This means that, for allocated blocks, they can be a part of the payload. To know whether the previous block
+   is allocated or free, we can use lower bits of the current block's header. Block size is always multiple of 8,
+   which means 3 lower bits are 0. The 0th bit is used to store the block status (allocated or free).
+   The remaining two are vacant. 
 
 ## Workshop
 
