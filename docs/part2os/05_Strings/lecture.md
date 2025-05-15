@@ -20,6 +20,7 @@ Slides ([PDF](OS_Lecture_05.pdf), [PPTX](OS_Lecture_05.pptx)).
 #### Example
 
 Simple `malloc` [implementation](memory/malloc.c) based on an implicit list and the first-fit policy.
+The full project is [here](https://github.com/andrewt0301/hse-acos-course/tree/master/docs/part2os/05_Strings/memory).
 
 Try using it to allocate memory for various programs. For example:
 ```cpp
@@ -98,6 +99,8 @@ See the __Homework__ in the workshop materials.
   https://en.wikipedia.org/wiki/The_Art_of_Computer_Programming).
   Volume 1. Fundamental algorithms. Section 2.5. Dynamic storage allocation.
 * [C dynamic memory allocation](https://en.wikipedia.org/wiki/C_dynamic_memory_allocation) (Wikipedia)
+* [Buddy memory allocation](https://en.wikipedia.org/wiki/Buddy_memory_allocation) (Wikipedia)
+* [Slab allocation](https://en.wikipedia.org/wiki/Slab_allocation) (Wikipedia)
 * [Malloc tutorial](https://danluu.com/malloc-tutorial/)
 * [Memory Allocators](https://github.com/mtrebi/memory-allocators)
 * [glibc's malloc](https://sourceware.org/glibc/wiki/MallocInternals) - derived from ptmalloc (pthreads malloc), which is derived from dlmalloc (Doug Lea malloc)
