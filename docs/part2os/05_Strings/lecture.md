@@ -10,7 +10,7 @@ Slides ([PDF](OS_Lecture_05.pdf), [PPTX](OS_Lecture_05.pptx)).
 #### Outline
 
 * Heap management and dynamic memory allocation
-* `malloc` package
+* [malloc](https://man7.org/linux/man-pages/man3/malloc.3.html) package
 * Internal and external fragmentation
 * Implicit and explicit lists, segregated lists, sorting blocks by size
 * Headers and footers
