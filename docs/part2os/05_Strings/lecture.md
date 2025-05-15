@@ -71,11 +71,16 @@ To practice with memory-allocation algorithms, do the following exercises:
      (the remaining part becomes in empty block).
    * If the next block is empty and is sufficiently large, extend the current block instead
      of freeing it, allocating a new one, and copying data. 
-2. Improve memory utilization: footers are required only for free blocks (used for coalescing adjacent blocks).
+2. Improve memory utilization: footers are used for coalescing adjacent free blocks and required only for free blocks.
    This means that, for allocated blocks, they can be a part of the payload. To know whether the previous block
    is allocated or free, we can use lower bits of the current block's header. Block size is always multiple of 8,
-   which means 3 lower bits are 0. The 0th bit is used to store the block status (allocated or free).
-   The remaining two are vacant. 
+   which means that 3 lower bits are 0. The 0th bit is already used to store the block status (allocated or free).
+   The remaining two are vacant.
+3. Improve performance of free block search: maintain an explicit double-linked list of free nodes.
+   This would allow skipping allocated nodes when searching. Pointers to the previous and next free node can
+   be stored inside the body (payload) of a free block. This means that the minimal block size will be 24 bytes:
+   4 (header) + 8 (pointer to prev) + 8 (pointer to next) + 4 (footer).
+   Also, it is often recommended to align blocks. So, the recommended size is 32 bytes (+8 bytes alignment padding). 
 
 ## Workshop
 
