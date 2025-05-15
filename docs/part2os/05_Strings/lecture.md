@@ -103,5 +103,6 @@ See the __Homework__ in the workshop materials.
 * [Slab allocation](https://en.wikipedia.org/wiki/Slab_allocation) (Wikipedia)
 * [Malloc tutorial](https://danluu.com/malloc-tutorial/)
 * [Memory Allocators](https://github.com/mtrebi/memory-allocators)
-* [glibc's malloc](https://sourceware.org/glibc/wiki/MallocInternals) - derived from ptmalloc (pthreads malloc), which is derived from dlmalloc (Doug Lea malloc)
-* [jemalloc](https://jemalloc.net/) (example of malloc implementation)
+* [glibc's malloc](https://sourceware.org/glibc/wiki/MallocInternals) (example of real-word malloc implementation)
+* [jemalloc](https://jemalloc.net/) (example of real-word malloc implementation)
+* [mimalloc](https://en.wikipedia.org/wiki/Mimalloc) (example of real-word malloc implementation)
