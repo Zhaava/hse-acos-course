@@ -464,7 +464,7 @@ Write a program that does the following:
 
 1. Inputs integer value `N`.
 2. Allocates an array of `N` random integer values (on stack or on heap using `malloc`/`free`).
-3. Splits the array into 4 parts of approximately equal parts (`N` must be sufficienty large, e.g. 16 or more).
+3. Splits the array into 4 parts of approximately equal parts (`N` must be sufficiently large, e.g. 16 or more).
 4. Create worker 4 threads, each of them:
    - Calculates the sum of elements in one of the parts.
    - Adds the result to global variable `sum` (must be protected with a mutex to avoid concurrent modification).
