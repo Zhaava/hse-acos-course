@@ -19,8 +19,8 @@ Slides ([PDF](OS_Lecture_05.pdf), [PPTX](OS_Lecture_05.pptx)).
 
 #### Example
 
-Simple `malloc` [implementation](memory/malloc.c) based on an implicit list and the first-fit policy.
-The full project is [here](https://github.com/andrewt0301/hse-acos-course/tree/master/docs/part2os/05_Strings/memory).
+Simple `malloc` [implementation](memory/malloc.c) based on an implicit list and the first-fit policy (
+the full project is [here](https://github.com/andrewt0301/hse-acos-course/tree/master/docs/part2os/05_Strings/memory)).
 
 Try using it to allocate memory for various programs. For example:
 ```cpp
