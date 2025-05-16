@@ -69,7 +69,7 @@ The instruction how to get and deploy it is [here](../../software/ubuntu.md).
 
 ##### Bash Commands
 
-Information on useful Linux and MacOS command-line tools can be found [here](bash.md).
+Information on useful Linux and MacOS command-line tools can be found [here](../../software/bash.md).
 
 ##### Git and GitHub
 
