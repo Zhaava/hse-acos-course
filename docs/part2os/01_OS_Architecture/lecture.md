@@ -16,9 +16,9 @@ Slides ([PDF](OS_Lecture_01.pdf), [PPTX](OS_Lecture_01.pptx)).
 * Setting up a [GitHub](../../software/git.md) repository
 * Learning main [Bash](../../software/bash.md) commands
 
-## Homework
+#### Practice
 
-__TODO__
+[Workshop on Linux Kernel Modules](kernel/lecture.md).
 
 # References
 
