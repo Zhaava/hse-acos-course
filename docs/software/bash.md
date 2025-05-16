@@ -5,8 +5,9 @@ Unix-based systems (such as Linux and MacOS) provide utility programs to perform
 These utilities are used via command-line interface.
 [Bash](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29)
 is command-line processor and language used to execute these command. 
-Bash is supported in Linux and MacOS. In Windows, a partial support is implemented in Git Bash. 
-Also, come of the commands are implemented in Terminal of JetBrains IDEs (PyCharm, IntelliJ IDEA, CLion, etc.).
+Bash is supported in Linux and MacOS.
+In Windows, a limited support is implemented in [Windows PowerShell](https://en.wikipedia.org/wiki/PowerShell) Git Bash. 
+Also, some of the commands are implemented in Terminal of JetBrains IDEs (PyCharm, IntelliJ IDEA, CLion, etc.).
 
 # Main Bash commands
 

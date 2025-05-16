@@ -35,7 +35,7 @@ Slides ([PDF](OS_Lecture_01.pdf), [PPTX](OS_Lecture_01.pptx)).
 
 ##### Linux utilities and Bash
 
-An instruction on how to work with Linux utility programs can be found [here](../../software/git.md).
+An instruction on how to work with Linux utility programs can be found [here](../../software/bash.md).
 
 ##### Using Git and GitHub
 
