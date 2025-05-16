@@ -11,7 +11,7 @@ Slides ([PDF](OS_Lecture_01.pdf), [PPTX](OS_Lecture_01.pptx)).
 
 #### Outline
 
-* Installing [Oracle VirtualBox](../../software.md#virtualbox)
+* Installing [VirtualBox](../../software.md#virtualbox)
 * [Installing](../../software/ubuntu_install.md) and [using](../../software/ubuntu.md) Linux Ubuntu in VirtualBox
 * Setting up a [GitHub](../../software/git.md) repository
 * Learning main [Bash](../../software/bash.md) commands
