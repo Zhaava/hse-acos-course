@@ -11,11 +11,11 @@ This means that this distribution will be supported by its vendor for 5 years (f
 
 #### Downloading
 
-Ubuntu 20.04 LTS can be downloaded from this [page](https://ubuntu.com/download/desktop).
+Ubuntu 24.04 LTS can be downloaded from this [page](https://ubuntu.com/download/desktop).
 Please pay some attention to system requirements.
 
 The downloaded distribution file is an [ISO image](https://en.wikipedia.org/wiki/ISO_image),
-which has a name like this: `ubuntu-20.04.1-desktop-amd64.iso`.
+which has a name like this: `ubuntu-24.04.2-desktop-amd64.iso`.
 
 #### Installing in Virtual Machine
 
@@ -25,7 +25,7 @@ we will install Linux Ubuntu in a [virtual machine](https://en.wikipedia.org/wik
 
 To install and run Linux Ubuntu,
 we will be using the [VirtualBox](https://en.wikipedia.org/wiki/VirtualBox) virtualization tool by Oracle.
-Teh recommended version is 6.1. If you have not installed it, please do it.
+The recommended version is 7.1. If you have not installed it, please do it.
 Here is download [link](https://www.virtualbox.org/wiki/Downloads).
 
 Instructions on how to install Linux Ubuntu and related tools in VirtualBox are [here](ubuntu_install.md).
@@ -38,9 +38,8 @@ To simplify using Linux Ubuntu in other classes, a ready-to-use virtual machine 
 
 Here are the download links for ready-to-use VMs:
 
-* [Linux Ubuntu 20.04 LTS](
-   https://yadi.sk/d/HRkBj9Ufq2sIDA).
-   3.21 GB (about 8 GB when unpacked).
+* [Linux Ubuntu 20.04 LTS](https://yadi.sk/d/HRkBj9Ufq2sIDA).
+  3.21 GB (about 8 GB when unpacked).
 
 You need to download, unzip, and add to it your VirtualBox.
 
