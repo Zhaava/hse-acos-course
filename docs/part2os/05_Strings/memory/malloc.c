@@ -42,6 +42,12 @@ typedef struct {
   void *end;
   // Head of implicit block list.
   void *head;
+  // Number of currently allocated bytes.
+  size_t alloc;
+  // Size of all allocated payloads (total malloc).
+  size_t payload;
+  // Size of all allocated blocks (total blocksize).
+  size_t usage;
 } heap_t;
 
 // Stores heap information.
@@ -73,9 +79,30 @@ void heap_dump() {
   }
 }
 
+// Prints statistics on heap usage.
+void stat_dump() {
+  size_t heapsize = g_heap.end - g_heap.start;
+  size_t allocated = g_heap.alloc;
+  size_t free = heapsize - allocated;
+  long usage = (100 * allocated) / heapsize;
+  long payload = (g_heap.payload * 100) / g_heap.usage;
+  char buff[256];
+  int len = snprintf(
+      buff,
+      sizeof(buff),
+      "Heap    = %zu\nAlloc   = %zu\nFree    = %zu\nUsage   = %ld%%\nPayload = %ld%%\n",
+      heapsize,
+      allocated,
+      free,
+      usage,
+      payload
+  );
+  write(STDOUT_FILENO, buff, len);
+}
+
 // Initializes the heap: allocates an initial empty block.
 static void heap_init() {
-  heap_t heap;
+  heap_t heap = {0};
   heap.pagesize = sysconf(_SC_PAGESIZE);
   heap.start = sbrk(heap.pagesize);
   heap.end = PTR_ADD(heap.start, heap.pagesize);
@@ -186,8 +213,12 @@ void *malloc(size_t size) {
     ptr = coalesce(ptr);
   }
   place(ptr, asize);
+  g_heap.alloc += asize;
+  g_heap.usage += asize;
+  g_heap.payload += size;
   HEAP_UNLOCK
   trace("malloc(%zu) = %p\n", size, ptr);
+  stat_dump();
   return ptr;
 }
 
@@ -203,6 +234,7 @@ void free(void *ptr) {
   PUT(hdr, size);
   PUT(ftr, size);
   coalesce(ptr);
+  g_heap.alloc -= size;
   HEAP_UNLOCK
 }
 
