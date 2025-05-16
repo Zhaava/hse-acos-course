@@ -31,7 +31,7 @@ Midnight Commander file manager:
 ```bash
 acos@acos-vm:~$ sudo apt install mc
 ```
-1. `sudo` helps execute a command as a super user
+1. `sudo` helps execute a command as a superuser
 1. `apt` is a Linux package manager
 
 ## Creating, editing and viewing source code:
@@ -55,6 +55,11 @@ gcc hello.c -o hello.c
 Running:
 ```bash
 ./hello
+```
+
+Measuring performance with the `time` utility:
+```bash
+time ./hello
 ```
 
 ## Getting information on CPU configuration
