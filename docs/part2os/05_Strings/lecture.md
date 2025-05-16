@@ -67,7 +67,7 @@ free(0x56f5dd366418)
 
 To practice with memory-allocation algorithms, do the following exercises:
 
-1. Change the implementation to support the next-fit strategy. How will this affect utilization?
+1. Change the implementation to support the next-fit strategy. How will this affect memory utilization?
 2. Improve the `realloc` implementation in the example:
    * If the new size is smaller than the original size of the block, split the block
      (the remaining part becomes in empty block).
