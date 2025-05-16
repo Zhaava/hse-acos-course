@@ -153,5 +153,5 @@ you need to install Java. Also, you may need a Java compiler.
 
 Execute the following commands:
 
-    acos@acos-vm:~$ sudo apt install openjdk-8-jre-headless
-    acos@acos-vm:~$ sudo apt install openjdk-8-jdk-headless
+    acos@acos-vm:~$ sudo apt install openjdk-17-jre-headless
+    acos@acos-vm:~$ sudo apt install openjdk-17-jdk-headless

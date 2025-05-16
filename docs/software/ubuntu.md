@@ -47,3 +47,12 @@ You need to download, unzip, and add to it your VirtualBox.
 ![](images/virtualbox_ubuntu_add_01.png)
 
 ![](images/virtualbox_ubuntu_add_02.png)
+
+#### Connecting to Ubuntu via SSH
+
+1. Run terminal in your host operating system (Git Bash for Windows).
+1. Execute the following command:
+   ```bash
+   ssh acos@localhost -p2022
+   ```
+1. For the downloaded ready-to-use VMs, use the password `acos2020`.
