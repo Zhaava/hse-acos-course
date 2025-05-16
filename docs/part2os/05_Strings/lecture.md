@@ -78,7 +78,7 @@ To practice with memory-allocation algorithms, do the following exercises:
    is allocated or free, we can use lower bits of the current block's header. Block size is always multiple of 8,
    which means that 3 lower bits are 0. The 0th bit is already used to store the block status (allocated or free).
    The remaining two are vacant.
-4. (*) Improve performance of free block search: maintain an explicit double-linked list of free nodes.
+4. Improve performance of free block search: maintain an explicit double-linked list of free nodes.
    This would allow skipping allocated nodes when searching. Pointers to the previous and next free node can
    be stored inside the body (payload) of a free block. This means that the minimal block size will be 24 bytes:
    4 (header) + 8 (pointer to prev) + 8 (pointer to next) + 4 (footer).
