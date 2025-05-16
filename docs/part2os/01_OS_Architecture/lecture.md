@@ -25,7 +25,4 @@ Slides ([PDF](OS_Lecture_01.pdf), [PPTX](OS_Lecture_01.pptx)).
 * Operating System Structures. Chapter 2 in [[OSC]](../../books.md)
 * [Bash](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) (Wikipedia)
 * [Linux man pages online](https://man7.org/linux/man-pages/index.html)
-* [PGLC] Mark G. Sobell, Matthew Helmke.
-  [Practical Guide to Linux Commands, Editors, and Shell Programming.](
-  https://www.pearson.com/store/p/practical-guide-to-linux-commands-editors-and-shell-programming-a/P100000878019/9780134774602)
-  4th Edition. 2018.
+* Practical Guide to Linux Commands, Editors, and Shell Programming. See [[PGLC]](../../books.md)
