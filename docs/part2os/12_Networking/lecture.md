@@ -25,4 +25,7 @@ __TODO__
 ## References
 
 * Network Programming. Chapter 11 in [[CSPP]](../../books.md)
+* Sockets: Fundamentals Of TCP/IP Networks. Chapter 58 in [[TLPI]](../../books.md)
+* [TCP/IP](https://en.wikipedia.org/wiki/Internet_protocol_suite) (Wikipedia)
+* [DNS](https://en.wikipedia.org/wiki/Domain_Name_System) (Wikipedia)
  
