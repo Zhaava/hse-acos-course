@@ -18,6 +18,17 @@ Outline:
 * [Part 2](workshop2.md).
 -->
 
+Querying DNS with [nslookup](https://en.wikipedia.org/wiki/Nslookup):
+```bash
+nslookup hse.ru
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+Name:	hse.ru
+Address: 178.248.234.104
+```
+
 ## Homework
 
 __TODO__
