@@ -141,6 +141,11 @@ source:         RIPE # Filtered
 % This query was served by the RIPE Database Query Service version 1.117 (DEXTER)
 ```
 
+Analyze TCP packets with the [tcpdump](https://en.wikipedia.org/wiki/Tcpdump) tool:
+```bash
+sudo tcpdump host 158.160.144.239 -v
+```
+
 ## Homework
 
 __TODO__
