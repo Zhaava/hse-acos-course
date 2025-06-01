@@ -54,6 +54,70 @@ Name:	hse.ru
 Address: 178.248.234.104
 ```
 
+Querying information on an IP address with [whois](https://en.wikipedia.org/wiki/WHOIS):
+```bash
+whois 89.175.46.44
+% This is the RIPE Database query service.
+% The objects are in RPSL format.
+%
+% The RIPE Database is subject to Terms and Conditions.
+% See https://docs.db.ripe.net/terms-conditions.html
+
+% Note: this output has been filtered.
+%       To receive output for a database update, use the "-B" flag.
+
+% Information related to '89.175.46.0 - 89.175.46.255'
+
+% Abuse contact for '89.175.46.0 - 89.175.46.255' is 'abuse@mtu.ru'
+
+inetnum:        89.175.46.0 - 89.175.46.255
+netname:        NRUHSE
+descr:          National Research University Higher School of Economics
+country:        RU
+admin-c:        MTU1-RIPE
+tech-c:         MTU1-RIPE
+status:         ASSIGNED PA
+mnt-by:         MTU-NOC
+created:        2022-02-04T07:55:18Z
+last-modified:  2022-02-04T07:55:18Z
+source:         RIPE
+
+role:           MTS backbone NOC
+address:        PJSC MTS / former CJSC Comstar-Direct
+address:        Petrovsky blvd 12, bldg 3
+address:        P.O. BOX 4711 127051
+address:        Moscow, Russia
+remarks:        **************************************
+remarks:        Contact addresses:
+remarks:        routing & peering noc@mtu.ru
+remarks:        spam & security abuse@mtu.ru
+remarks:        mail postmaster@mtu.ru
+remarks:        ddos reports ddos-reports@mtu.ru
+remarks:        **************************************
+phone:          +7 495 721-34-99
+fax-no:         +7 495 956-07-07
+admin-c:        EDA-RIPE
+admin-c:        RPS-RIPE
+tech-c:         EDA-RIPE
+nic-hdl:        MTU1-RIPE
+mnt-by:         MTU-NOC
+created:        2002-10-18T13:29:19Z
+last-modified:  2022-04-08T13:50:05Z
+source:         RIPE # Filtered
+
+% Information related to '89.175.0.0/16AS8359'
+
+route:          89.175.0.0/16
+descr:          MTS PJSC
+origin:         AS8359
+mnt-by:         MTU-NOC
+created:        2016-06-04T18:36:17Z
+last-modified:  2024-06-06T12:06:50Z
+source:         RIPE # Filtered
+
+% This query was served by the RIPE Database Query Service version 1.117 (DEXTER)
+```
+
 ## Homework
 
 __TODO__
