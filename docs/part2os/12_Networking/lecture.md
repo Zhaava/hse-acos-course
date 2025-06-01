@@ -18,6 +18,29 @@ Outline:
 * [Part 2](workshop2.md).
 -->
 
+Using the [wget](https://en.wikipedia.org/wiki/Wget) utility to download files (via HTTPS):
+```bash
+wget https://andrewt0301.github.io/hse-acos-course/part2os/12_Networking/OS_Lecture_12.pdf
+--2025-06-01 23:01:58--  https://andrewt0301.github.io/hse-acos-course/part2os/12_Networking/OS_Lecture_12.pdf
+Resolving andrewt0301.github.io (andrewt0301.github.io)... 185.199.110.153, 185.199.111.153, 185.199.108.153, ...
+Connecting to andrewt0301.github.io (andrewt0301.github.io)|185.199.110.153|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1338083 (1.3M) [application/pdf]
+Saving to: ‘OS_Lecture_12.pdf’
+
+OS_Lecture_12.pdf                         100%[====================================================================================>]   1.28M   801KB/s    in 1.6s    
+
+2025-06-01 23:02:00 (801 KB/s) - ‘OS_Lecture_12.pdf’ saved [1338083/1338083]
+```
+
+Using the [curl](https://en.wikipedia.org/wiki/CURL) utility to download files (via HTTPS):
+```bash
+curl https://andrewt0301.github.io/hse-acos-course/part2os/12_Networking/OS_Lecture_12.pdf -O
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 1306k  100 1306k    0     0  1008k      0  0:00:01  0:00:01 --:--:-- 1008k
+```
+
 Viewing standard ports for various services:
 ```bash
 cat /etc/services | grep http
