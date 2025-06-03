@@ -73,7 +73,7 @@ Final test for Computer Architecture is [here](part1ca/final_tests.md).
 1. [Sockets.](part2os/13_Sockets/lecture.md)
 1. [High-level Languages and Operating System.](part2os/14_Python/lecture.md)
 
-Final test for Operating Systems is [here](part2os/final_test.md).
+Final test for Operating Systems is [here](part2os/final_tests.md).
 
 ### Additional Chapters
 
