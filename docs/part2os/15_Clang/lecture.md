@@ -159,7 +159,110 @@ void foo(int x) {
 ```
 
 See that the `trace` macro has been replaced by call to function `print' and the integer argument
-has been expanded to an additional argument holding its name. 
+has been expanded to an additional argument holding its name.
+
+#### Lexical analysis
+
+Lexical analysis is the first stage of the compiler. During this stage, the compiler scans
+a stream to characters and builds tokens (that describe identifiers, keywords, operators, etc.):
+
+```bash
+clang -cc1 -dump-tokens test.c
+void 'void'	 [StartOfLine]	Loc=<test.c:3:1>
+identifier 'write_i'	 [LeadingSpace]	Loc=<test.c:3:6>
+l_paren '('		Loc=<test.c:3:13>
+int 'int'		Loc=<test.c:3:14>
+r_paren ')'		Loc=<test.c:3:17>
+semi ';'		Loc=<test.c:3:18>
+void 'void'	 [StartOfLine]	Loc=<test.c:4:1>
+identifier 'write_s'	 [LeadingSpace]	Loc=<test.c:4:6>
+l_paren '('		Loc=<test.c:4:13>
+const 'const'		Loc=<test.c:4:14>
+char 'char'	 [LeadingSpace]	Loc=<test.c:4:20>
+star '*'	 [LeadingSpace]	Loc=<test.c:4:25>
+r_paren ')'		Loc=<test.c:4:26>
+semi ';'		Loc=<test.c:4:27>
+void 'void'	 [StartOfLine]	Loc=<test.c:6:1>
+identifier 'print'	 [LeadingSpace]	Loc=<test.c:6:6>
+l_paren '('		Loc=<test.c:6:11>
+const 'const'		Loc=<test.c:6:12>
+char 'char'	 [LeadingSpace]	Loc=<test.c:6:18>
+star '*'	 [LeadingSpace]	Loc=<test.c:6:23>
+identifier 's'		Loc=<test.c:6:24>
+comma ','		Loc=<test.c:6:25>
+int 'int'	 [LeadingSpace]	Loc=<test.c:6:27>
+identifier 'a'	 [LeadingSpace]	Loc=<test.c:6:31>
+r_paren ')'		Loc=<test.c:6:32>
+l_brace '{'	 [LeadingSpace]	Loc=<test.c:6:34>
+identifier 'write_s'	 [StartOfLine] [LeadingSpace]	Loc=<test.c:7:3>
+l_paren '('		Loc=<test.c:7:10>
+identifier 's'		Loc=<test.c:7:11>
+r_paren ')'		Loc=<test.c:7:12>
+semi ';'		Loc=<test.c:7:13>
+identifier 'write_i'	 [StartOfLine] [LeadingSpace]	Loc=<test.c:8:3>
+l_paren '('		Loc=<test.c:8:10>
+identifier 'a'		Loc=<test.c:8:11>
+r_paren ')'		Loc=<test.c:8:12>
+semi ';'		Loc=<test.c:8:13>
+r_brace '}'	 [StartOfLine]	Loc=<test.c:9:1>
+void 'void'	 [StartOfLine]	Loc=<test.c:11:1>
+identifier 'foo'	 [LeadingSpace]	Loc=<test.c:11:6>
+l_paren '('		Loc=<test.c:11:9>
+int 'int'		Loc=<test.c:11:10>
+identifier 'x'	 [LeadingSpace]	Loc=<test.c:11:14>
+r_paren ')'		Loc=<test.c:11:15>
+l_brace '{'	 [LeadingSpace]	Loc=<test.c:11:17>
+identifier 'print'	 [StartOfLine] [LeadingSpace]	Loc=<test.c:12:3 <Spelling=test.c:1:18>>
+l_paren '('		Loc=<test.c:12:3 <Spelling=test.c:1:23>>
+string_literal '"Value of "'		Loc=<test.c:12:3 <Spelling=test.c:1:24>>
+string_literal '"x"'	 [LeadingSpace]	Loc=<test.c:12:3 <Spelling=<scratch space>:2:1>>
+comma ','		Loc=<test.c:12:3 <Spelling=test.c:1:38>>
+identifier 'x'	 [LeadingSpace]	Loc=<test.c:12:3 <Spelling=test.c:12:9>>
+r_paren ')'		Loc=<test.c:12:3 <Spelling=test.c:1:41>>
+semi ';'		Loc=<test.c:12:11>
+int 'int'	 [StartOfLine] [LeadingSpace]	Loc=<test.c:13:3>
+identifier 'y'	 [LeadingSpace]	Loc=<test.c:13:7>
+comma ','		Loc=<test.c:13:8>
+identifier 'z'	 [LeadingSpace]	Loc=<test.c:13:10>
+semi ';'		Loc=<test.c:13:11>
+if 'if'	 [StartOfLine] [LeadingSpace]	Loc=<test.c:14:3>
+l_paren '('	 [LeadingSpace]	Loc=<test.c:14:6>
+identifier 'x'		Loc=<test.c:14:7>
+equalequal '=='	 [LeadingSpace]	Loc=<test.c:14:9>
+numeric_constant '0'	 [LeadingSpace]	Loc=<test.c:14:12>
+r_paren ')'		Loc=<test.c:14:13>
+identifier 'y'	 [StartOfLine] [LeadingSpace]	Loc=<test.c:15:5>
+equal '='	 [LeadingSpace]	Loc=<test.c:15:7>
+numeric_constant '5'	 [LeadingSpace]	Loc=<test.c:15:9>
+semi ';'		Loc=<test.c:15:10>
+identifier 'print'	 [StartOfLine] [LeadingSpace]	Loc=<test.c:16:3 <Spelling=test.c:1:18>>
+l_paren '('		Loc=<test.c:16:3 <Spelling=test.c:1:23>>
+string_literal '"Value of "'		Loc=<test.c:16:3 <Spelling=test.c:1:24>>
+string_literal '"y"'	 [LeadingSpace]	Loc=<test.c:16:3 <Spelling=<scratch space>:3:1>>
+comma ','		Loc=<test.c:16:3 <Spelling=test.c:1:38>>
+identifier 'y'	 [LeadingSpace]	Loc=<test.c:16:3 <Spelling=test.c:16:9>>
+r_paren ')'		Loc=<test.c:16:3 <Spelling=test.c:1:41>>
+semi ';'		Loc=<test.c:16:11>
+if 'if'	 [StartOfLine] [LeadingSpace]	Loc=<test.c:17:3>
+l_paren '('	 [LeadingSpace]	Loc=<test.c:17:6>
+exclaim '!'		Loc=<test.c:17:7>
+identifier 'x'		Loc=<test.c:17:8>
+r_paren ')'		Loc=<test.c:17:9>
+identifier 'z'	 [StartOfLine] [LeadingSpace]	Loc=<test.c:18:5>
+equal '='	 [LeadingSpace]	Loc=<test.c:18:7>
+numeric_constant '6'	 [LeadingSpace]	Loc=<test.c:18:9>
+semi ';'		Loc=<test.c:18:10>
+identifier 'print'	 [StartOfLine] [LeadingSpace]	Loc=<test.c:19:3 <Spelling=test.c:1:18>>
+l_paren '('		Loc=<test.c:19:3 <Spelling=test.c:1:23>>
+string_literal '"Value of "'		Loc=<test.c:19:3 <Spelling=test.c:1:24>>
+string_literal '"z"'	 [LeadingSpace]	Loc=<test.c:19:3 <Spelling=<scratch space>:4:1>>
+comma ','		Loc=<test.c:19:3 <Spelling=test.c:1:38>>
+identifier 'z'	 [LeadingSpace]	Loc=<test.c:19:3 <Spelling=test.c:19:9>>
+r_paren ')'		Loc=<test.c:19:3 <Spelling=test.c:1:41>>
+semi ';'		Loc=<test.c:19:11>
+r_brace '}'	 [StartOfLine]	Loc=<test.c:20:1>
+eof ''		Loc=<test.c:20:2>
+```
 
 * [test.c](
   https://github.com/andrewt0301/static-analysis-course/tree/main/docs/lectures/14/examples/test.c)
@@ -169,9 +272,7 @@ has been expanded to an additional argument holding its name.
 ##### Exploring `test.c`:
 
 1. Dump tokens:
-   ```bash
-   clang -cc1 -dump-tokens test.c
-   ```
+
 
 2. Dump and view AST:
    ```bash
