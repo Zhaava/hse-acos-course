@@ -158,7 +158,7 @@ void foo(int x) {
 }
 ```
 
-See that the `trace` macro has been replaced by call to function `print' and the integer argument
+See that the `trace` macro has been replaced by a call to function `print` and the integer argument
 has been expanded to an additional argument holding its name.
 
 #### Lexical analysis
