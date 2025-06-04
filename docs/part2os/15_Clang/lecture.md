@@ -54,7 +54,7 @@ are described in the [DOT](https://en.wikipedia.org/wiki/DOT_%28graph_descriptio
 format and rendered to an image with the help of the
 [Graphviz](https://en.wikipedia.org/wiki/Graphviz) tool.
 
-First, install the required tools: 
+First, install the required visualization tools: 
 
 ```bash
 sudo apt install graphviz
@@ -71,7 +71,8 @@ It solves the same task as GNU Make, but it has better performance
 apt install python3-distutils-extra
 ```
 
-Third, build and install LLVM compiler infrastructure (this is debug build with some optimizations).
+Third, build and install LLVM compiler infrastructure (this is a debug build with
+some optimizations that reduce build time and size of the files).
 That is interesting, we build a debug version of Clang 20, with installed version of Clang 18.
 
 ```bash
@@ -92,15 +93,27 @@ ninja install
 export PATH=/home/andrewt/Programs/llvm/bin:$PATH
 ```
 
-#### Examples
+#### Build Hello World and viewing build phases
+
+Build and run the [hello.c](hello.c) program:
+```bash
+clang hello.c -o hello
+./hello 
+Hello!
+```
+Build and see the list of build phases:
+```bash
+clang hello.c -o hello -ccc-print-phases
+            +- 0: input, "hello.c", c
+         +- 1: preprocessor, {0}, cpp-output
+      +- 2: compiler, {1}, ir
+   +- 3: backend, {2}, assembler
++- 4: assembler, {3}, object
+5: linker, {4}, image
+```
 
 * [test.c](
   https://github.com/andrewt0301/static-analysis-course/tree/main/docs/lectures/14/examples/test.c)
-
-#### Tasks
-
-Installing [Graphviz](https://en.wikipedia.org/wiki/Graphviz) and
-[GV](https://www.gnu.org/software/gv/) (required for graph visualization):
 
 
 
