@@ -1,6 +1,6 @@
 Lecture 15
 ---
-# Compiler Infrastructure LLVM/Clang
+# Compiler Infrastructure Clang/LLVM
 
 ## Lecture
 
@@ -123,6 +123,43 @@ Build config: +unoptimized, +assertions
  "/home/andrewt/Programs/llvm/bin/clang-20" "-cc1" "-triple" "x86_64-unknown-linux-gnu" "-emit-obj" "-dumpdir" "hello-" "-disable-free" "-clear-ast-before-backend" "-main-file-name" "hello.c" "-mrelocation-model" "pic" "-pic-level" "2" "-pic-is-pie" "-mframe-pointer=all" "-fmath-errno" "-ffp-contract=on" "-fno-rounding-math" "-mconstructor-aliases" "-funwind-tables=2" "-target-cpu" "x86-64" "-tune-cpu" "generic" "-debugger-tuning=gdb" "-fdebug-compilation-dir=/home/andrewt/Documents/src/hse/hse-acos-course/docs/part2os/15_Clang" "-fcoverage-compilation-dir=/home/andrewt/Documents/src/hse/hse-acos-course/docs/part2os/15_Clang" "-resource-dir" "/home/andrewt/Programs/llvm/lib/clang/20" "-internal-isystem" "/home/andrewt/Programs/llvm/lib/clang/20/include" "-internal-isystem" "/usr/local/include" "-internal-isystem" "/usr/lib/gcc/x86_64-linux-gnu/13/../../../../x86_64-linux-gnu/include" "-internal-externc-isystem" "/usr/include/x86_64-linux-gnu" "-internal-externc-isystem" "/include" "-internal-externc-isystem" "/usr/include" "-ferror-limit" "19" "-fgnuc-version=4.2.1" "-fskip-odr-check-in-gmf" "-fcolor-diagnostics" "-faddrsig" "-D__GCC_HAVE_DWARF2_CFI_ASM=1" "-o" "/tmp/hello-da670c.o" "-x" "c" "hello.c"
  "/usr/bin/ld" "-z" "relro" "--hash-style=gnu" "--eh-frame-hdr" "-m" "elf_x86_64" "-pie" "-dynamic-linker" "/lib64/ld-linux-x86-64.so.2" "-o" "hello" "/lib/x86_64-linux-gnu/Scrt1.o" "/lib/x86_64-linux-gnu/crti.o" "/usr/lib/gcc/x86_64-linux-gnu/13/crtbeginS.o" "-L/usr/lib/gcc/x86_64-linux-gnu/13" "-L/usr/lib/gcc/x86_64-linux-gnu/13/../../../../lib64" "-L/lib/x86_64-linux-gnu" "-L/lib/../lib64" "-L/usr/lib/x86_64-linux-gnu" "-L/usr/lib/../lib64" "-L/lib" "-L/usr/lib" "/tmp/hello-da670c.o" "-lgcc" "--as-needed" "-lgcc_s" "--no-as-needed" "-lc" "-lgcc" "--as-needed" "-lgcc_s" "--no-as-needed" "/usr/lib/gcc/x86_64-linux-gnu/13/crtendS.o" "/lib/x86_64-linux-gnu/crtn.o"
 ```
+
+#### Preprocessing
+
+Preprocessing the [test.c](test.c) file (expanding all macros):
+
+```bash
+clang test.c -E
+# 1 "test.c"
+# 1 "<built-in>" 1
+# 1 "<built-in>" 3
+# 389 "<built-in>" 3
+# 1 "<command line>" 1
+# 1 "<built-in>" 2
+# 1 "test.c" 2
+
+void write_i(int);
+void write_s(const char *);
+
+void print(const char *s, int a) {
+  write_s(s);
+  write_i(a);
+}
+
+void foo(int x) {
+  print("Value of " "x", x);
+  int y, z;
+  if (x == 0)
+    y = 5;
+  print("Value of " "y", y);
+  if (!x)
+    z = 6;
+  print("Value of " "z", z);
+}
+```
+
+See that the `trace` macro has been replaced by call to function `print' and the integer argument
+has been expanded to an additional argument holding its name. 
 
 * [test.c](
   https://github.com/andrewt0301/static-analysis-course/tree/main/docs/lectures/14/examples/test.c)

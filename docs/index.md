@@ -78,6 +78,7 @@ Final test for Operating Systems is [here](part2os/final_tests.md).
 ### Additional Chapters
 
 1. [Domain-specific architectures. Tensor Processing Unit.](part1ca/16_TPU/lecture.md)
+2. [Compiler infrastructure Clang/LLVM](part2os/15_Clang/lecture.md)
 
 ## Exam
 
