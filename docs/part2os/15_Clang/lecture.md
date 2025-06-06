@@ -369,6 +369,23 @@ Function `foo`:
 Function `print`:
 ![test02](test02.png)
 
+The structure of Clang AST is quite complex. There is no single inheritance hierarchy.
+Instead, there are several hierarchies based on some main base classes. 
+Most of the nodes derive from the following main base classes:
+[Type](https://clang.llvm.org/doxygen/classclang_1_1Type.html),
+[Decl](https://clang.llvm.org/doxygen/classclang_1_1Decl.html)/
+[DeclContext](https://clang.llvm.org/doxygen/classclang_1_1DeclContext.html) or
+[Stmt](https://clang.llvm.org/doxygen/classclang_1_1Stmt.html).
+`Type`, `Decl` and `Stmt` do not have a common ancestor. Nodes of different
+types refer to each other.
+
+For example, node [VarDecl](https://clang.llvm.org/doxygen/classclang_1_1VarDecl.html)
+(variable declaration like `int x = 0`) is derived from `Decl` and has method `getType`
+that returns `Type` and method `hasInit` that returns `Expr`.
+Node [DeclRefExpr](https://clang.llvm.org/doxygen/classclang_1_1DeclRefExpr.html)
+(expression that refers to a variable or any other declaration like `x` in any context)
+has method `getDecl` that returns a corresponding declaration.
+
 3. Dump and view call graph:
    ```bash
    clang -cc1 -analyze -analyzer-checker="debug.DumpCallGraph" test.c
