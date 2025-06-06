@@ -264,14 +264,9 @@ r_brace '}'	 [StartOfLine]	Loc=<test.c:20:1>
 eof ''		Loc=<test.c:20:2>
 ```
 
-* [test.c](
-  https://github.com/andrewt0301/static-analysis-course/tree/main/docs/lectures/14/examples/test.c)
+In fact, Clang combines lexical analysis and preprocessing: it collects token that come
+from different locations (current source file, included headers, and macros).
 
-
-
-##### Exploring `test.c`:
-
-1. Dump tokens:
 
 
 2. Dump and view AST:
