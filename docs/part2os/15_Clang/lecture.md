@@ -267,13 +267,107 @@ eof ''		Loc=<test.c:20:2>
 In fact, Clang combines lexical analysis and preprocessing: it collects token that come
 from different locations (current source file, included headers, and macros).
 
+#### Syntactical analysis
 
+The next compiler stage is to recognize syntactical structure of a source file.
+At this stage, the compiler uses tokens to build
+an [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree)(AST).
 
-2. Dump and view AST:
-   ```bash
-   clang -cc1 -ast-dump test.c
-   clang -cc1 -ast-view test.c
-   ```
+Viewing AST as a text:
+
+```bash
+clang -cc1 -ast-dump test.c
+TranslationUnitDecl 0x5cc40885cac8 <<invalid sloc>> <invalid sloc>
+|-TypedefDecl 0x5cc40885d2f8 <<invalid sloc>> <invalid sloc> implicit __int128_t '__int128'
+| `-BuiltinType 0x5cc40885d090 '__int128'
+|-TypedefDecl 0x5cc40885d368 <<invalid sloc>> <invalid sloc> implicit __uint128_t 'unsigned __int128'
+| `-BuiltinType 0x5cc40885d0b0 'unsigned __int128'
+|-TypedefDecl 0x5cc40885d670 <<invalid sloc>> <invalid sloc> implicit __NSConstantString 'struct __NSConstantString_tag'
+| `-RecordType 0x5cc40885d440 'struct __NSConstantString_tag'
+|   `-Record 0x5cc40885d3c0 '__NSConstantString_tag'
+|-TypedefDecl 0x5cc40885d718 <<invalid sloc>> <invalid sloc> implicit __builtin_ms_va_list 'char *'
+| `-PointerType 0x5cc40885d6d0 'char *'
+|   `-BuiltinType 0x5cc40885cb70 'char'
+|-TypedefDecl 0x5cc40885da10 <<invalid sloc>> <invalid sloc> implicit __builtin_va_list 'struct __va_list_tag[1]'
+| `-ConstantArrayType 0x5cc40885d9b0 'struct __va_list_tag[1]' 1 
+|   `-RecordType 0x5cc40885d7f0 'struct __va_list_tag'
+|     `-Record 0x5cc40885d770 '__va_list_tag'
+|-FunctionDecl 0x5cc4088aedc0 <test.c:3:1, col:17> col:6 used write_i 'void (int)'
+| `-ParmVarDecl 0x5cc4088aecf0 <col:14> col:17 'int'
+|-FunctionDecl 0x5cc4088aefa0 <line:4:1, col:26> col:6 used write_s 'void (const char *)'
+| `-ParmVarDecl 0x5cc4088aeed0 <col:14, col:25> col:26 'const char *'
+|-FunctionDecl 0x5cc4088af1c0 <line:6:1, line:9:1> line:6:6 used print 'void (const char *, int)'
+| |-ParmVarDecl 0x5cc4088af068 <col:12, col:24> col:24 used s 'const char *'
+| |-ParmVarDecl 0x5cc4088af0e8 <col:27, col:31> col:31 used a 'int'
+| `-CompoundStmt 0x5cc4088af418 <col:34, line:9:1>
+|   |-CallExpr 0x5cc4088af308 <line:7:3, col:12> 'void'
+|   | |-ImplicitCastExpr 0x5cc4088af2f0 <col:3> 'void (*)(const char *)' <FunctionToPointerDecay>
+|   | | `-DeclRefExpr 0x5cc4088af278 <col:3> 'void (const char *)' Function 0x5cc4088aefa0 'write_s' 'void (const char *)'
+|   | `-ImplicitCastExpr 0x5cc4088af330 <col:11> 'const char *' <LValueToRValue>
+|   |   `-DeclRefExpr 0x5cc4088af298 <col:11> 'const char *' lvalue ParmVar 0x5cc4088af068 's' 'const char *'
+|   `-CallExpr 0x5cc4088af3d8 <line:8:3, col:12> 'void'
+|     |-ImplicitCastExpr 0x5cc4088af3c0 <col:3> 'void (*)(int)' <FunctionToPointerDecay>
+|     | `-DeclRefExpr 0x5cc4088af348 <col:3> 'void (int)' Function 0x5cc4088aedc0 'write_i' 'void (int)'
+|     `-ImplicitCastExpr 0x5cc4088af400 <col:11> 'int' <LValueToRValue>
+|       `-DeclRefExpr 0x5cc4088af368 <col:11> 'int' lvalue ParmVar 0x5cc4088af0e8 'a' 'int'
+`-FunctionDecl 0x5cc4088af4e0 <line:11:1, line:20:1> line:11:6 foo 'void (int)'
+  |-ParmVarDecl 0x5cc4088af450 <col:10, col:14> col:14 used x 'int'
+  `-CompoundStmt 0x5cc4088afbe8 <col:17, line:20:1>
+    |-CallExpr 0x5cc4088af688 <line:1:18, col:41> 'void'
+    | |-ImplicitCastExpr 0x5cc4088af670 <col:18> 'void (*)(const char *, int)' <FunctionToPointerDecay>
+    | | `-DeclRefExpr 0x5cc4088af590 <col:18> 'void (const char *, int)' Function 0x5cc4088af1c0 'print' 'void (const char *, int)'
+    | |-ImplicitCastExpr 0x5cc4088af6d0 <col:24, <scratch space>:2:1> 'const char *' <NoOp>
+    | | `-ImplicitCastExpr 0x5cc4088af6b8 <test.c:1:24, <scratch space>:2:1> 'char *' <ArrayToPointerDecay>
+    | |   `-StringLiteral 0x5cc4088af5f0 <test.c:1:24, <scratch space>:2:1> 'char[11]' lvalue "Value of x"
+    | `-ImplicitCastExpr 0x5cc4088af6e8 <test.c:12:9> 'int' <LValueToRValue>
+    |   `-DeclRefExpr 0x5cc4088af618 <col:9> 'int' lvalue ParmVar 0x5cc4088af450 'x' 'int'
+    |-DeclStmt 0x5cc4088af818 <line:13:3, col:11>
+    | |-VarDecl 0x5cc4088af718 <col:3, col:7> col:7 used y 'int'
+    | `-VarDecl 0x5cc4088af798 <col:3, col:10> col:10 used z 'int'
+    |-IfStmt 0x5cc4088af908 <line:14:3, line:15:9>
+    | |-BinaryOperator 0x5cc4088af888 <line:14:7, col:12> 'int' '=='
+    | | |-ImplicitCastExpr 0x5cc4088af870 <col:7> 'int' <LValueToRValue>
+    | | | `-DeclRefExpr 0x5cc4088af830 <col:7> 'int' lvalue ParmVar 0x5cc4088af450 'x' 'int'
+    | | `-IntegerLiteral 0x5cc4088af850 <col:12> 'int' 0
+    | `-BinaryOperator 0x5cc4088af8e8 <line:15:5, col:9> 'int' '='
+    |   |-DeclRefExpr 0x5cc4088af8a8 <col:5> 'int' lvalue Var 0x5cc4088af718 'y' 'int'
+    |   `-IntegerLiteral 0x5cc4088af8c8 <col:9> 'int' 5
+    |-CallExpr 0x5cc4088af9a8 <line:1:18, col:41> 'void'
+    | |-ImplicitCastExpr 0x5cc4088af990 <col:18> 'void (*)(const char *, int)' <FunctionToPointerDecay>
+    | | `-DeclRefExpr 0x5cc4088af928 <col:18> 'void (const char *, int)' Function 0x5cc4088af1c0 'print' 'void (const char *, int)'
+    | |-ImplicitCastExpr 0x5cc4088af9f0 <col:24, <scratch space>:3:1> 'const char *' <NoOp>
+    | | `-ImplicitCastExpr 0x5cc4088af9d8 <test.c:1:24, <scratch space>:3:1> 'char *' <ArrayToPointerDecay>
+    | |   `-StringLiteral 0x5cc4088af948 <test.c:1:24, <scratch space>:3:1> 'char[11]' lvalue "Value of y"
+    | `-ImplicitCastExpr 0x5cc4088afa08 <test.c:16:9> 'int' <LValueToRValue>
+    |   `-DeclRefExpr 0x5cc4088af970 <col:9> 'int' lvalue Var 0x5cc4088af718 'y' 'int'
+    |-IfStmt 0x5cc4088afad0 <line:17:3, line:18:9>
+    | |-UnaryOperator 0x5cc4088afa58 <line:17:7, col:8> 'int' prefix '!' cannot overflow
+    | | `-ImplicitCastExpr 0x5cc4088afa40 <col:8> 'int' <LValueToRValue>
+    | |   `-DeclRefExpr 0x5cc4088afa20 <col:8> 'int' lvalue ParmVar 0x5cc4088af450 'x' 'int'
+    | `-BinaryOperator 0x5cc4088afab0 <line:18:5, col:9> 'int' '='
+    |   |-DeclRefExpr 0x5cc4088afa70 <col:5> 'int' lvalue Var 0x5cc4088af798 'z' 'int'
+    |   `-IntegerLiteral 0x5cc4088afa90 <col:9> 'int' 6
+    `-CallExpr 0x5cc4088afb70 <line:1:18, col:41> 'void'
+      |-ImplicitCastExpr 0x5cc4088afb58 <col:18> 'void (*)(const char *, int)' <FunctionToPointerDecay>
+      | `-DeclRefExpr 0x5cc4088afaf0 <col:18> 'void (const char *, int)' Function 0x5cc4088af1c0 'print' 'void (const char *, int)'
+      |-ImplicitCastExpr 0x5cc4088afbb8 <col:24, <scratch space>:4:1> 'const char *' <NoOp>
+      | `-ImplicitCastExpr 0x5cc4088afba0 <test.c:1:24, <scratch space>:4:1> 'char *' <ArrayToPointerDecay>
+      |   `-StringLiteral 0x5cc4088afb10 <test.c:1:24, <scratch space>:4:1> 'char[11]' lvalue "Value of z"
+      `-ImplicitCastExpr 0x5cc4088afbd0 <test.c:19:9> 'int' <LValueToRValue>
+        `-DeclRefExpr 0x5cc4088afb38 <col:9> 'int' lvalue Var 0x5cc4088af798 'z' 'int'
+```
+
+Viewing AST as a picture (requires a debug build of Clang):
+
+```bash
+clang -cc1 -ast-view test.c
+```
+
+Function `foo`:
+![test01](test01.png)
+
+Function `print`:
+![test02](test02.png)
 
 3. Dump and view call graph:
    ```bash
