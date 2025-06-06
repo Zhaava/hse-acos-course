@@ -383,7 +383,7 @@ For example, node [VarDecl](https://clang.llvm.org/doxygen/classclang_1_1VarDecl
 (variable declaration like `int x = 0`) is derived from `Decl` and has method `getType`
 that returns `Type` and method `hasInit` that returns `Expr`.
 Node [DeclRefExpr](https://clang.llvm.org/doxygen/classclang_1_1DeclRefExpr.html)
-(expression that refers to a variable or any other declaration like `x` in any context)
+(expression that refers to a variable or any other declaration like `x` in `func(x)`)
 has method `getDecl` that returns a corresponding declaration.
 
 #### Semantic analysis
