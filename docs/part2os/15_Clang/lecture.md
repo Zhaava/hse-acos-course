@@ -93,7 +93,7 @@ ninja install
 export PATH=/home/andrewt/Programs/llvm/bin:$PATH
 ```
 
-#### Build Hello World and viewing build phases
+#### Building "Hello World" and viewing the build phases
 
 Build and run the [hello.c](hello.c) program:
 ```bash
@@ -373,11 +373,11 @@ The structure of Clang AST is quite complex. There is no single inheritance hier
 Instead, there are several hierarchies based on some main base classes. 
 Most of the nodes derive from the following main base classes:
 [Type](https://clang.llvm.org/doxygen/classclang_1_1Type.html),
-[Decl](https://clang.llvm.org/doxygen/classclang_1_1Decl.html)/
+[Decl](https://clang.llvm.org/doxygen/classclang_1_1Decl.html) /
 [DeclContext](https://clang.llvm.org/doxygen/classclang_1_1DeclContext.html) or
 [Stmt](https://clang.llvm.org/doxygen/classclang_1_1Stmt.html).
-`Type`, `Decl` and `Stmt` do not have a common ancestor. Nodes of different
-types refer to each other.
+`Type`, `Decl` and `Stmt` do not have a common ancestor.
+Nodes of different types refer to each other.
 
 For example, node [VarDecl](https://clang.llvm.org/doxygen/classclang_1_1VarDecl.html)
 (variable declaration like `int x = 0`) is derived from `Decl` and has method `getType`
@@ -385,6 +385,43 @@ that returns `Type` and method `hasInit` that returns `Expr`.
 Node [DeclRefExpr](https://clang.llvm.org/doxygen/classclang_1_1DeclRefExpr.html)
 (expression that refers to a variable or any other declaration like `x` in any context)
 has method `getDecl` that returns a corresponding declaration.
+
+#### Semantic analysis
+
+In Clang, semantic analysis is done together with AST construction (syntactical analysis).
+It checks the semantic correctness of the code and adds additional attributes to the nodes.
+E.g. variable usage `DeclRefExpr` is linked with its definition `VarDecl`.
+So, Clang AST is not really a tree, but rather a graph.
+Semantic checks includes the following tasks:
+* Type checking: determining the data types of expressions to ensure they are compatible with operators and functions.
+* Name resolution: finding the correct declarations (functions, variables, etc.) associated with names used in the code.
+* Scope analysis: understanding where identifiers are valid and accessible.
+
+The semantic analysis phase detects errors that cannot be detected during syntactical analysis,
+such as type conflicts, undeclared identifiers, or invalid uses of language features.
+
+For example, here is a typical semantic issue "undefined variable"
+(not that the semantically invalid statement is excluded from the AST):
+```bash
+cat test2.c 
+int main() {
+  x = 10; // x is undefined
+  return 0;
+}
+clang -cc1 -ast-dump -ast-dump-filter=main test2.c
+test2.c:2:3: error: use of undeclared identifier 'x'
+    2 |   x = 10;
+      |   ^
+Dumping main:
+FunctionDecl 0x5f3b252c02b8 <test2.c:1:1, line:4:1> line:1:5 main 'int ()'
+`-CompoundStmt 0x5f3b252c0410 <col:12, line:4:1>
+  `-ReturnStmt 0x5f3b252c0400 <line:3:3, col:10>
+    `-IntegerLiteral 0x5f3b252c03e0 <col:10> 'int' 0
+```
+
+#### Code generation
+
+TODO
 
 3. Dump and view call graph:
    ```bash
@@ -404,6 +441,8 @@ has method `getDecl` that returns a corresponding declaration.
 * [Clang](https://en.wikipedia.org/wiki/Clang) (Wikipedia)
 * [LLVM Web Site](https://llvm.org/)
 * [LLVM Project](https://github.com/llvm/llvm-project) (GitHub)
+* Michael Adams. [Lecture Slides for the Clang Libraries (LLVM/Clang 15)](
+  https://ece.engr.uvic.ca/~frodo/cppbook/downloads/lecture_slides_for_the_clang_libraries-0.0.pdf).
 * [Clang Static Analyzer - A Checker Developer's Guide](
   https://github.com/haoNoQ/clang-analyzer-guide/releases/download/v0.1/clang-analyzer-guide-v0.1.pdf)
 * [[LLVM]](../../books.md#tool-books) Chapters 2, 3, 4, 5, 9, 10
