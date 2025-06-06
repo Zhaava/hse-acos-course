@@ -6,8 +6,6 @@ Lecture 15
 
 Slides: [PDF](slides_14.pdf), [PPTX](slides_14.pptx)
 
-Notes: [PDF](nodes_14.pdf)
-
 #### Outline
 
 * LLVM Project: history and architecture
