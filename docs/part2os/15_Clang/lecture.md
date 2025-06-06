@@ -68,7 +68,7 @@ It solves the same task as GNU Make, but it has better performance
 (automatically generated scripts that efficiently parallelize build tasks). 
 
 ```bash
-apt install python3-distutils-extra
+sudo apt install ninja-build
 ```
 
 Third, build and install LLVM compiler infrastructure (this is a debug build with
