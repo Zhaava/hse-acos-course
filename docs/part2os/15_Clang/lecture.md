@@ -423,6 +423,12 @@ The next stage is code generation. At this stage, Clang generates [LLVM IR](http
 intermediate representation that is used to apply ISA-independent optimizations.
 LLVM IR looks like a high-level assembly language that can be in two forms: textual and binary (so-called bitcode).
 
+LLVM IR is based on [SSA-form](https://en.wikipedia.org/wiki/Static_single-assignment_form)
+(static single-assignment form). The main idea of this format is that every variable is assigned only once,
+which means that, for each new assignment, a new version of a variable is created (e.g. `%1`, `%2`, etc.).
+This format facilitates solving optimization tasks such as constant propagation, dead code elimination, etc.
+In the end, when a real assembly code is generated, variables are mapped to real registers.
+
 Translating source code to LLVM assembly (human-readable format):
 ```bash
 clang -S -emit-llvm test.c
