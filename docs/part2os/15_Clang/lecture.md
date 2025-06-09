@@ -39,7 +39,7 @@ it is recommended to clone its sources from GitHub and build them.
 
 _Warning: this may take several hours depending on your computer._
 
-##### Cloning project from GitHub and checking our LLVM 20 (latest release):
+##### Cloning project from GitHub and checking out LLVM 20 (latest release):
 
 ```bash
 git clone git@github.com:llvm/llvm-project.git
