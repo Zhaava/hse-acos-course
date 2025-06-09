@@ -419,8 +419,9 @@ FunctionDecl 0x5f3b252c02b8 <test2.c:1:1, line:4:1> line:1:5 main 'int ()'
 
 #### Code generation
 
-The next stage is code generation. At this stage, Clang generates LLVM IR (intermediate representation).
-ISA-independent optimizations are applied at the IR-level.
+The next stage is code generation. At this stage, Clang generates [LLVM IR](https://llvm.org/docs/LangRef.html),
+intermediate representation that is used to apply ISA-independent optimizations.
+LLVM IR looks like a high-level assembly language that can be in two forms: textual and binary (so-called bitcode).
 
 Translating source code to LLVM assembly (human-readable format):
 ```bash
