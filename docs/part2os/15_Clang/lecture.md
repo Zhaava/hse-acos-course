@@ -432,9 +432,10 @@ In the end, when a real assembly code is generated, variables are mapped to real
 
 Translating source code to LLVM assembly (human-readable format):
 ```bash
-clang -S -emit-llvm test.c
+clang -S -emit-llvm test.c -Xclang -disable-O0-optnone
 cat test.ll
 ```
+_Note: flag is important `-disable-O0-optnone` to allow further IR optimizations._
 
 The result looks as follows:
 ```llvm
@@ -447,7 +448,7 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.1 = private unnamed_addr constant [11 x i8] c"Value of y\00", align 1
 @.str.2 = private unnamed_addr constant [11 x i8] c"Value of z\00", align 1
 
-; Function Attrs: noinline nounwind optnone uwtable
+; Function Attrs: noinline nounwind uwtable
 define dso_local void @print(ptr noundef %s, i32 noundef %a) #0 {
 entry:
   %s.addr = alloca ptr, align 8
@@ -465,7 +466,7 @@ declare void @write_s(ptr noundef) #1
 
 declare void @write_i(i32 noundef) #1
 
-; Function Attrs: noinline nounwind optnone uwtable
+; Function Attrs: noinline nounwind uwtable
 define dso_local void @foo(i32 noundef %x) #0 {
 entry:
   %x.addr = alloca i32, align 4
@@ -499,7 +500,7 @@ if.end2:                                          ; preds = %if.then1, %if.end
   ret void
 }
 
-attributes #0 = { noinline nounwind optnone uwtable "frame-pointer"="all" "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #0 = { noinline nounwind uwtable "frame-pointer"="all" "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { "frame-pointer"="all" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 
 !llvm.module.flags = !{!0, !1, !2, !3, !4}
