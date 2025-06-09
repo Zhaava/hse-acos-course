@@ -533,7 +533,8 @@ opt -print-passes
 ```
 
 Let us start from debug passes that visualize LLVM IR.
-For example, the code below builds CFG (control-flow graph) of the functions in the LLVM IR module: 
+For example, the code below builds [CFG](https://en.wikipedia.org/wiki/Control-flow_graph)
+(control-flow graph) of the functions in the LLVM IR module: 
 ```bash
 dot .print.dot -Tpng -o print.png
 dot .foo.dot -Tpng -o foo.png
