@@ -424,7 +424,7 @@ ISA-independent optimizations are applied at the IR-level.
 
 Translating source code to LLVM assembly (human-readable format):
 ```bash
-clang -S -emit-llvm test.c 
+clang -S -emit-llvm test.c
 cat test.ll
 ; ModuleID = 'test.c'
 source_filename = "test.c"
@@ -501,7 +501,21 @@ attributes #1 = { "frame-pointer"="all" "no-trapping-math"="true" "stack-protect
 !5 = !{!"clang version 20.1.5 (https://github.com/llvm/llvm-project.git 7b09d7b446383b71b63d429b21ee45ba389c5134)"}
 ```
 
-TODO
+Translating source code to LLVM bitcode (binary format):
+```bash
+clang -emit-llvm test.c
+lang -emit-llvm -c test.c
+file test.bc
+test.bc: LLVM IR bitcode
+```
+
+Tools [llvm-as](https://llvm.org/docs/CommandGuide/llvm-as.html) and
+[llvm-dis](https://llvm.org/docs/CommandGuide/llvm-dis.html)
+can be used to translate bitcode to LLVM format:
+```bash
+llvm-as test.ll -o test.bc
+llvm-dis test.bc -o test.ll
+```
 
 3. Dump and view call graph:
    ```bash
