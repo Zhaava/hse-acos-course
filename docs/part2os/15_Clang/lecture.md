@@ -578,6 +578,11 @@ clang -cc1 -analyze -analyzer-checker="debug.ViewCallGraph" test.c
 Viewing CFG and Exploded Graph:
 ```bash
 clang -cc1 -analyze -analyzer-checker="debug.ViewCFG" test.c
+```
+![foo](foo_clang.png)
+![print](print_clang.png)
+
+```bash
 clang -cc1 -analyze -analyzer-checker="debug.ViewExplodedGraph" test.c
 ```
 
