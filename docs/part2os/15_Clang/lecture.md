@@ -560,17 +560,26 @@ dot test.ll.callgraph.dot -Tpng -o test_callgraph.png
 
 ### Clang Static Analyzer
 
-3. Dump and view call graph:
-   ```bash
-   clang -cc1 -analyze -analyzer-checker="debug.DumpCallGraph" test.c
-   clang -cc1 -analyze -analyzer-checker="debug.ViewCallGraph" test.c
-   ```
+Dumping and viewing call graphs:
+```bash
+clang -cc1 -analyze -analyzer-checker="debug.DumpCallGraph" test.c
+ --- Call graph Dump --- 
+  Function: < root > calls: print write_s write_i foo 
+  Function: foo calls: print print print 
+  Function: print calls: write_s write_i 
+  Function: write_i calls: 
+  Function: write_s calls:
+```
+```bash
+clang -cc1 -analyze -analyzer-checker="debug.ViewCallGraph" test.c
+```
+![callgraph](test_callgraph_clang.png)
 
-4. View CFG and Exploded Graph:
-   ```bash
-   clang -cc1 -analyze -analyzer-checker="debug.ViewCFG" test.c
-   clang -cc1 -analyze -analyzer-checker="debug.ViewExplodedGraph" test.c
-   ```
+Viewing CFG and Exploded Graph:
+```bash
+clang -cc1 -analyze -analyzer-checker="debug.ViewCFG" test.c
+clang -cc1 -analyze -analyzer-checker="debug.ViewExplodedGraph" test.c
+```
 
 ## References
 
