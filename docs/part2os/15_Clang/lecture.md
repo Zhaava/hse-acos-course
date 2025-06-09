@@ -541,9 +541,16 @@ dot .foo.dot -Tpng -o foo.png
 opt test.ll --passes=dot-cfg
 ```
 
-The output looks like this:
+The result looks like this:
 ![foo](foo.png)
 ![print](print.png)
+
+Also, it is possible to visualize a [call graph](https://en.wikipedia.org/wiki/Call_graph):
+```bash
+opt test.ll --passes=dot-callgraph
+dot test.ll.callgraph.dot -Tpng -o test_callgraph.png
+```
+![call graph](test_callgraph.png)
 
 ### Clang Static Analyzer
 
