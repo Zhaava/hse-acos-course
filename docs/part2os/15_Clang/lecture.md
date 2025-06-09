@@ -520,6 +520,26 @@ llvm-dis test.bc -o test.ll
 
 ### Optimizations
 
+In LLVM, optimizations are performed by the [opt](https://llvm.org/docs/CommandGuide/opt.html) tool.
+It applies a number of passed to LLVM IR in order to transform it to an optimized forms.
+
+The list of available passes can be printed with this command:
+```llvm
+opt -print-passes
+```
+
+Let us start from debug passes that visualize LLVM IR.
+For example, the code below builds CFG (control-flow graph) of the functions in the LLVM IR module: 
+```llvm
+dot .print.dot -Tpng -o print.png
+dot .foo.dot -Tpng -o foo.png
+opt test.ll --passes=dot-cfg
+```
+
+The output looks like this:
+![foo](foo.png)
+![print](print.png)
+
 ### Clang Static Analyzer
 
 3. Dump and view call graph:
