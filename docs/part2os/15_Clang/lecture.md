@@ -560,7 +560,7 @@ dot test.ll.callgraph.dot -Tpng -o test_callgraph.png
 
 ### Clang Static Analyzer
 
-Dumping and viewing call graphs:
+Dumping call graphs (Clang-level):
 ```bash
 clang -cc1 -analyze -analyzer-checker="debug.DumpCallGraph" test.c
  --- Call graph Dump --- 
@@ -570,21 +570,25 @@ clang -cc1 -analyze -analyzer-checker="debug.DumpCallGraph" test.c
   Function: write_i calls: 
   Function: write_s calls:
 ```
+
+Viewing call graphs (Clang-level):
 ```bash
 clang -cc1 -analyze -analyzer-checker="debug.ViewCallGraph" test.c
 ```
 ![callgraph](test_callgraph_clang.png)
 
-Viewing CFG and Exploded Graph:
+Viewing CFGs (Clang-level):
 ```bash
 clang -cc1 -analyze -analyzer-checker="debug.ViewCFG" test.c
 ```
 ![foo](foo_clang.png)
 ![print](print_clang.png)
 
+Viewing the exploded graph (unrolled CFG):
 ```bash
 clang -cc1 -analyze -analyzer-checker="debug.ViewExplodedGraph" test.c
 ```
+The exploded graph is [here](test_exploded.svg). Note: it is very large even for such a small function.
 
 ## References
 
