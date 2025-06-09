@@ -71,7 +71,7 @@ sudo apt install ninja-build
 
 Third, build and install LLVM compiler infrastructure (this is a debug build with
 some optimizations that reduce build time and size of the files).
-That is interesting, we build a debug version of Clang 20, with installed version of Clang 18.
+That is interesting, we build a debug version of Clang 20 with installed version of Clang 18.
 
 ```bash
 cd /home/andrewt/Documents/src/llvm-project/
