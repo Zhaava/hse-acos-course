@@ -4,7 +4,7 @@ Lecture 15
 
 ## Lecture
 
-Slides: [PDF](slides_14.pdf), [PPTX](slides_14.pptx)
+Slides: [PDF](OS_Lecture_15.pdf), [PPTX](OS_Lecture_15.pptx)
 
 #### Outline
 
