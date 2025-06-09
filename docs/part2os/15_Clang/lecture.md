@@ -518,6 +518,10 @@ llvm-as test.ll -o test.bc
 llvm-dis test.bc -o test.ll
 ```
 
+### Optimizations
+
+### Clang Static Analyzer
+
 3. Dump and view call graph:
    ```bash
    clang -cc1 -analyze -analyzer-checker="debug.DumpCallGraph" test.c
@@ -540,5 +544,4 @@ llvm-dis test.bc -o test.ll
   https://ece.engr.uvic.ca/~frodo/cppbook/downloads/lecture_slides_for_the_clang_libraries-0.0.pdf).
 * [Clang Static Analyzer - A Checker Developer's Guide](
   https://github.com/haoNoQ/clang-analyzer-guide/releases/download/v0.1/clang-analyzer-guide-v0.1.pdf)
-* [[LLVM]](../../books.md#tool-books) Chapters 2, 3, 4, 5, 9, 10
 * [LLVM Language Reference Manual](https://llvm.org/docs/LangRef.html)
