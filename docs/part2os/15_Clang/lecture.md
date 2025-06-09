@@ -427,6 +427,10 @@ Translating source code to LLVM assembly (human-readable format):
 ```bash
 clang -S -emit-llvm test.c
 cat test.ll
+```
+
+The result looks as follows:
+```llvm
 ; ModuleID = 'test.c'
 source_filename = "test.c"
 target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-f80:128-n8:16:32:64-S128"
@@ -524,13 +528,13 @@ In LLVM, optimizations are performed by the [opt](https://llvm.org/docs/CommandG
 It applies a number of passed to LLVM IR in order to transform it to an optimized forms.
 
 The list of available passes can be printed with this command:
-```llvm
+```bash
 opt -print-passes
 ```
 
 Let us start from debug passes that visualize LLVM IR.
 For example, the code below builds CFG (control-flow graph) of the functions in the LLVM IR module: 
-```llvm
+```bash
 dot .print.dot -Tpng -o print.png
 dot .foo.dot -Tpng -o foo.png
 opt test.ll --passes=dot-cfg
