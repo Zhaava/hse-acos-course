@@ -36,6 +36,7 @@ sudo apt install clang
 
 For studying Clang source code, making experiments, and using features available to developers,
 it is recommended to clone its sources from GitHub and build them.
+
 _Warning: this may take several hours depending on your computer._
 
 ##### Cloning project from GitHub and checking our LLVM 20 (latest release):
