@@ -540,8 +540,6 @@ dot .print.dot -Tpng -o print.png
 dot .foo.dot -Tpng -o foo.png
 opt test.ll --passes=dot-cfg
 ```
-
-The result looks like this:
 ![foo](foo.png)
 ![print](print.png)
 
