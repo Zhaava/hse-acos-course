@@ -128,11 +128,11 @@ _Note_: the `^` symbol means "power".
 
 Варианты для групп:
 
-* [КНАД231](variants_2025_compds231.md)
-* [КНАД232](variants_2025_compds232.md)
-* [ЭАД231](variants_2025_ead231.md)
-* [ЭАД232](variants_2025_ead232.md)
-* [ЭАД233](variants_2025_ead233.md)
-* [ВСН231/232](variants_2025_vsn231.md)
+* [КНАД 231](variants_2025_compds231.md)
+* [КНАД 232](variants_2025_compds232.md)
+* [ЭАД 231](variants_2025_ead231.md)
+* [ЭАД 232](variants_2025_ead232.md)
+* [ЭАД 233](variants_2025_ead233.md)
+* [ВСН 231/232](variants_2025_vsn231.md)
 
 _Замечание_: символ `^` означает возведение в степень.
