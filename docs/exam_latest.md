@@ -168,7 +168,7 @@ Printed version is [here](exam/exam_os_print.pdf).
 
 1. Compiling/linking/loading. Static and dynamic libraries.
    * List the compiler stages (steps to turn a C source file to an executable file).
-   * What is done at the linking stage? What is the meaning of `static` and `global` keywords?
+   * What is done at the linking stage? What is the meaning of `static` and `extern` keywords?
    * Explain the idea of static and shared libraries.
    * Explain the idea of run-time loading of shared libraries. What are the advantages of shared libraries?
    * Explain the idea of library interpositioning (compile time, link lime, load/run time). 
