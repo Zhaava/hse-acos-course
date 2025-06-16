@@ -20,7 +20,7 @@ Copy-paste from external sources and other students will result in 100% penalty.
    * Give definitions of payload, fragmentation (internal and external), and placement strategies.
    * Briefly describe the idea of splitting and coalescing.
    * What is the purpose of the `sbrk` system call?
-   * What real world memory allocators do you know? What are common challenges for the them?
+   * What real world memory allocators do you know? What are common challenges for them?
 
 1. Processes.
    * What is a process? What parts does it contain (its layout in memory)?
