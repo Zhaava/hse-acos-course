@@ -74,7 +74,11 @@ print.done:
     ecall
     ret
 
-# Computes the distance between the smallest and the largest element in the array and returns it in (a0).
+# You must submit this function:
+#
+# The function computes the distance between the smallest and the largest element
+# in the array and returns it in (a0).
+#
 # a0 - address of array start
 # a1 - number of elements
 func:
