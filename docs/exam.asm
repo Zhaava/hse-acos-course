@@ -85,7 +85,7 @@ func:
     addi sp, sp, -12
     sw s0, 0(sp)
     sw s1, 4(sp)
-    sw s1, 8(sp)
+    sw s2, 8(sp)
 
     mv s0, a0 # Current address (p)
     mv s1, a1 # Element count (N)
