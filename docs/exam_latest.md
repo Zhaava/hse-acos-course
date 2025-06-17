@@ -281,7 +281,7 @@ __NOTE__: When implementing a function be careful about callee-saved registers:
 The function computes the distance between the smallest and
 the largest element in the array and returns it in (`a0`).
 
-# Example Solution
+### Example Solution
 
 See the `func` function in [this](exam.asm) file.
 
