@@ -24,6 +24,8 @@ The exam checks your overall understanding of the main concepts.
 
 ## Questions
 
+Python script to pick questions at random is [here](exam/exam_random.py).
+
 ### Computer Architecture
 
 Printed version is [here](exam/exam_ca_print.pdf).
